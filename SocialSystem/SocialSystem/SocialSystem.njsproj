@@ -42,11 +42,13 @@
     <Compile Include="server\data\models\User.js" />
     <Compile Include="server\data\users.js" />
     <Compile Include="server\utilities\encryption.js" />
+    <Content Include=".bowerrc" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="server\views\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\lib\" />
     <Folder Include="server\" />
     <Folder Include="public\" />
     <Folder Include="server\config\" />
