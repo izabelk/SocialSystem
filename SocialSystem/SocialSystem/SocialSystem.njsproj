@@ -37,6 +37,11 @@
   <ItemGroup>
     <Folder Include="server\" />
     <Folder Include="public\" />
+    <Folder Include="server\config\" />
+    <Folder Include="server\controllers\" />
+    <Folder Include="server\models\" />
+    <Folder Include="server\views\" />
+    <Folder Include="server\utilities\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
   <ProjectExtensions>
