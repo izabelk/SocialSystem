@@ -1,0 +1,10 @@
+{
+  "name": "SocialSystem",
+  "version": "0.0.0",
+  "description": "SocialSystem",
+  "main": "server.js",
+  "author": {
+    "name": "user",
+    "email": ""
+  }
+}
