@@ -142,7 +142,6 @@
     <Content Include="public\lib\jquery\dist\jquery.min.map" />
     <Content Include="public\lib\jquery\MIT-LICENSE.txt" />
     <Content Include="public\lib\jquery\src\sizzle\dist\sizzle.min.map" />
-    <Content Include="public\lib\text.txt" />
     <Content Include="README.md" />
     <Content Include="server\views\index.html" />
   </ItemGroup>
