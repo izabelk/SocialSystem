@@ -5,13 +5,9 @@ var Message;
 
 module.exports.init = function () {
     var messagesSchema = new mongoose.Schema({
-        content: { type: String, required: '{PATH} is required', max:140 },
+        content: { type: String, required: '{PATH} is required', max: 140 },
         date: Date,
-        from : {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        to: {
+        author : {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },

@@ -1,7 +1,7 @@
 ﻿var UsersController = require('./UsersController');
-    //FilesController = require('./FilesController');
+    MessagesController = require('./MessagesController');
 
 module.exports = {
-    users: UsersController
-    //files: FilesController
+    users: UsersController,
+    messages: MessagesController
 };

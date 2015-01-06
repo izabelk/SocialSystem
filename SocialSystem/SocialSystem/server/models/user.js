@@ -11,7 +11,6 @@ module.exports.init = function () {
         email: { type: String, require: '{PATH} is required', unique: true },
         salt: String,
         hashPass: String,
-        roles: [String],
         registeredOn: Date,
         followedUsers: [mongoose.model('User').schema],
         messages: [mongoose.model('Message').schema],
