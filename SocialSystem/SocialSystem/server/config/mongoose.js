@@ -1,5 +1,5 @@
 ﻿var mongoose = require('mongoose'),
-    UserModel = require('../data/models/User');
+    UserModel = require('../models/User');
     //FileModel = require('../data/models/File');
 
 module.exports = function (config) {
