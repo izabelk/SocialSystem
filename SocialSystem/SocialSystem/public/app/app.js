@@ -15,8 +15,8 @@ app.config(function ($routeProvider) {
     
     $routeProvider
         .when('/', {
-        template: '<div>Bye</div>'
-        //controller: 'MainCtrl'
+        template: '/partials/main/home',
+        controller: 'MainCtrl'
     })
          .otherwise({
         redirectTo: '/'
