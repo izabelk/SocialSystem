@@ -13,11 +13,14 @@ app.config(function ($routeProvider) {
     //    }
     //};
     
-    //$routeProvider
-    //    .when('/', {
-    //    templateUrl: '/partials/main/home',
-    //    controller: 'MainCtrl'
-    //})
+    $routeProvider
+        .when('/', {
+        template: '<div>Bye</div>'
+        //controller: 'MainCtrl'
+    })
+         .otherwise({
+        redirectTo: '/'
+    });
     //    .when('/login', {
     //    templateUrl: '/partials/account/login',
     //    controller: 'LoginCtrl'
