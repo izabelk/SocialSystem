@@ -1,6 +1,5 @@
 ﻿var mongoose = require('mongoose'),
-    UserModel = require('../models/User');
-    //FileModel = require('../data/models/File');
+    Models = require('../models');
 
 module.exports = function (config) {
     mongoose.connect(config.db);
@@ -19,6 +18,6 @@ module.exports = function (config) {
         console.log('Database error: ' + err);
     });
     
-    UserModel.init();
-    //FileModel.init();
+    Models.Message.init();
+    Models.User.init();
 };
