@@ -13,8 +13,8 @@ module.exports = {
                 if (err) {
                     return next(err);
                 }
-
-                res.send({success: true, user: user});
+                
+                res.send({ success: true, user: user });
             })
         });
         
@@ -25,10 +25,13 @@ module.exports = {
         auth(req, res, next);
     },
     logout: function (req, res, next) {
+        console.log(req.user);
         req.logout();
         res.send({ success: true });
     },
-    isAuthenticated: function (req, res, next) { // TODO: Show error to user 
+    isAuthenticated: function (req, res, next)
+    {
+ // TODO: Show error to user 
         if (!req.isAuthenticated()) {
             res.status(403).send('Access denied.');
         }
