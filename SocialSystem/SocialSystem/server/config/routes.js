@@ -3,21 +3,19 @@
     path = require('path');
 
 module.exports = function (app) {
-    app.get('/register', controllers.users.getRegister);
-    app.post('/register', controllers.users.postRegister);
+    app.get('/views/partials/:name', function (req, res) {
+        var name = req.params.name; 
+        res.sendFile(path.join(__dirname, '../../public/app/views/partials', name));
+    });
     
-    app.get('/login', controllers.users.getLogin);
-    app.post('/login', auth.login);
-    app.get('/logout', auth.isAuthenticated, auth.logout);
-    
-    //app.get('/upload', auth.isAuthenticated, controllers.files.getUpload);
-    //app.post('/upload', auth.isAuthenticated, controllers.files.postUpload);
-    
-    //app.get('/upload-results', auth.isAuthenticated, controllers.files.getResults);
-    
-    //app.get('/files/download/:id', controllers.files.download);
-    
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, '../views', 'index.html'));
+    });
+
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../views', 'index.html'));
     });
+
+    app.route('/api/users')
+        .post(controllers.users.postRegister);
 };

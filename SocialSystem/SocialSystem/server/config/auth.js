@@ -22,7 +22,7 @@ module.exports = {
     },
     isAuthenticated: function (req, res, next) { // TODO: Show error to user 
         if (!req.isAuthenticated()) {
-            res.redirect('/login');
+            res.status(403).send('Access denied.');
         }
         else {
             next();

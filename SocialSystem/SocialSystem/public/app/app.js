@@ -15,34 +15,16 @@ app.config(function ($routeProvider) {
     
     $routeProvider
         .when('/', {
-        template: '<h1>Sasho</h1>',
-        controller: 'MainCtrl'
+            template: '<h1>Sasho</h1>'
     })
+        .when('/register', {
+            templateUrl: 'views/partials/register.html',
+            controller: 'RegisterController'
+
+        })
          .otherwise({
         redirectTo: '/'
     });
-    //    .when('/login', {
-    //    templateUrl: '/partials/account/login',
-    //    controller: 'LoginCtrl'
-    //})
-    //    .when('/users/:id', {
-    //    templateUrl: '/partials/users/user-details',
-    //    controller: 'UserDetailsCtrl'
-    //})
-    //    .when('/inbox', {
-    //    templateUrl: '/partials/messages/inbox',
-    //    controller: 'InboxCtrl',
-    //    resolve: routeUserChecks.authenticated
-    //})
-    //    .when('/send-message/:username', {
-    //    templateUrl: '/partials/messages/send-message-form',
-    //    controller: 'SendMessageCtrl',
-    //    resolve: routeUserChecks.authenticated
-    //})
-    //    .when('/signup', {
-    //    templateUrl: '/partials/account/signup',
-    //    controller: 'SignUpCtrl'
-    //})
 });
 
 //app.run(function ($rootScope, $window, notifier) {

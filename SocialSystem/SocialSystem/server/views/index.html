@@ -2,8 +2,11 @@
 <html ng-app="app">
 <head>
     <title>Social app</title>
+
+    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css"/>
 </head>
-<body ng-cloak>
+<body>
     <data-ng-view />
 
     <script src="../../lib/jquery/dist/jquery.js"></script>
@@ -13,6 +16,13 @@
     <script src="../../lib/angular-resource/angular-resource.js"></script>
     <script src="../../lib/toastr/toastr.js"></script>
 
+
     <script src="../../app/app.js"></script>
-    </body>
+    <script src="../../app/controllers/RegisterController.js"></script>
+    <script src="../../app/services/account/auth.js"></script>
+    <script src="../../app/services/account/UsersResource.js"></script>
+    <script src="../../app/services/account/identity.js"></script>
+    <script src="../../app/services/notifier.js"></script>
+
+</body>			
 </html>

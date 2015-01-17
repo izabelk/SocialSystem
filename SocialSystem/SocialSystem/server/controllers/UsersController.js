@@ -4,9 +4,6 @@
 var CONTROLLER_NAME = 'users';
 
 module.exports = {
-    getRegister: function (req, res, next) {
-        res.render(CONTROLLER_NAME + '/register')
-    },
     postRegister: function (req, res, next) {
         var newUserData = req.body;
         
