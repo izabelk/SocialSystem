@@ -27,6 +27,7 @@ module.exports = {
                     else {
                         console.log('success register');
                         console.log(user);
+                        res.send({success: true});
                     }
                 })
             });

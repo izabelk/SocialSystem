@@ -16,7 +16,9 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, '../views', 'index.html'));
     });
 
-    app.route('/api/users').post(controllers.users.postRegister);
     app.route('/api/login').post(auth.login);
     app.route('/api/logout').post(auth.logout);
+
+    app.route('/api/users').post(controllers.users.postRegister);
+    app.route('/api/messages').get(controllers.messages.getMessages);
 };
