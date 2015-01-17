@@ -26,6 +26,7 @@ module.exports = {
     },
     logout: function (req, res, next) {
         req.logout();
+        res.send({ success: true });
     },
     isAuthenticated: function (req, res, next) { // TODO: Show error to user 
         if (!req.isAuthenticated()) {
