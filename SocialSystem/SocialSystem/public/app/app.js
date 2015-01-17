@@ -15,8 +15,9 @@ app.config(function ($routeProvider) {
     
     $routeProvider
         .when('/', {
-            template: '<h1>Sasho</h1>'
-    })
+            templateUrl: 'views/partials/home.html',
+            controller: 'HomeController'
+        })
         .when('/register', {
             templateUrl: 'views/partials/register.html',
             controller: 'RegisterController'
