@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
     
     $routeProvider
         .when('/', {
-        template: '/partials/main/home',
+        template: '<h1>Sasho</h1>',
         controller: 'MainCtrl'
     })
          .otherwise({
