@@ -1,5 +1,6 @@
 ﻿var auth = require('./auth'),
-    controllers = require('../controllers');
+    controllers = require('../controllers'),
+    path = require('path');
 
 module.exports = function (app) {
     app.get('/register', controllers.users.getRegister);
@@ -16,11 +17,7 @@ module.exports = function (app) {
     
     //app.get('/files/download/:id', controllers.files.download);
     
-    app.get('/', function (req, res) {
-        res.render('index');
-    });
-    
     app.get('*', function (req, res) {
-        res.render('index');
+        res.sendFile(path.join(__dirname, '../views', 'index.html'));
     });
 };
