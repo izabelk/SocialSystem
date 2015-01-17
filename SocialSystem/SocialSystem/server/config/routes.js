@@ -18,4 +18,7 @@ module.exports = function (app) {
 
     app.route('/api/users')
         .post(controllers.users.postRegister);
+
+    app.route('/api/login')
+        .post(auth.login);
 };

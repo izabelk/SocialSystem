@@ -1,22 +1,23 @@
 ﻿var passport = require('passport'),
-    LocalPassport = require('passport-local'),
+    LocalStrategy = require('passport-local').Strategy,
     User = require('mongoose').model('User');
 
 module.exports = function () {
-    passport.use(new LocalPassport(function (email, password, done) {
-        User.findOne({ email: email }).exec(function (err, user) {
-            if (err) {
-                console.log('Error loading user: ' + err);
-                return;
-            }
-            
-            if (user && user.authenticate(password)) {
-                return done(null, user);
-            }
-            else {
-                return done(null, false);
-            }
-        })
+    passport.use(new LocalStrategy(function (email, password, done) {  
+
+        console.log(email);
+        User.findOne({ email: email }, function(err, user) {
+          if (err) { return done(err); }
+          if (!user) {
+            return done(null, false, { message: 'Incorrect email.' });
+          }
+          if (!user.authenticate(password)) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+
+          return done(null, user);
+        });
+
     }));
     
     passport.serializeUser(function (user, done) {

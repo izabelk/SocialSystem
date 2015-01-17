@@ -9,16 +9,22 @@ module.exports = {
             }
             
             req.logIn(user, function (err) {
-                if (err) return next(err);
-                res.redirect('/');
+                if (err) {
+                    return next(err);
+                }
+
+                res.send({success: true, user: user});
             })
         });
         
+        if (!req.body.username && req.body.email) {
+            req.body.username = req.body.email;
+        }
+
         auth(req, res, next);
     },
     logout: function (req, res, next) {
         req.logout();
-        res.redirect('/');
     },
     isAuthenticated: function (req, res, next) { // TODO: Show error to user 
         if (!req.isAuthenticated()) {

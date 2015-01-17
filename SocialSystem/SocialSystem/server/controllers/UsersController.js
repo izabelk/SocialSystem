@@ -8,8 +8,7 @@ module.exports = {
         var newUserData = req.body;
         
         if (newUserData.password != newUserData.confirmPassword) {
-            req.session.error = 'Passwords do not match!';
-            res.redirect('/register');
+            req.session.error = 'Passwords do not match!'; 
         }
         else {
             newUserData.salt = encryption.generateSalt();
@@ -26,13 +25,11 @@ module.exports = {
                         return res.send({ reason: err.toString() }); // TODO
                     }
                     else {
-                        res.redirect('/');
+                        console.log('success register');
+                        console.log(user);
                     }
                 })
             });
         }
-    },
-    getLogin: function (req, res, next) {
-        res.render(CONTROLLER_NAME + '/login');
     }
 };
