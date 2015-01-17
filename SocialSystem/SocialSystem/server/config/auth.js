@@ -9,6 +9,7 @@ module.exports = {
             }
             
             req.logIn(user, function (err) {
+                console.log(err);
                 if (err) {
                     return next(err);
                 }
@@ -20,7 +21,7 @@ module.exports = {
         if (!req.body.username && req.body.email) {
             req.body.username = req.body.email;
         }
-
+        
         auth(req, res, next);
     },
     logout: function (req, res, next) {

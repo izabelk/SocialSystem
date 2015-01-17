@@ -1,6 +1,9 @@
 ﻿<div class="container">
-    <div class="jumbotron">
-        Home page
+    <div class="jumbotron" clas="text-center">
+        <h2 class="text-center">Welcome to Hirundo! Connect with your friends from every angle!</h2>
+    </div>
+    <div class="row text-center">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4wGDXBxJl9MMX-MXRiA2mNXDGTdSuaH4AtNiaVb_ZNPgQZ7Mc" />
     </div>
     <div class="row">
         <div class="col-md-4" ng-show="auth.isAuthenticated()">
@@ -8,9 +11,12 @@
                 Log out
             </button>
         </div>
-        <div class="col-md-4" ng-hide="auth.isAuthenticated()">
-            <button class="btn btn-sm btn-primary">
-                Logged in
+        <div class="col-md-4" ng-show="!auth.isAuthenticated()">
+            <button class="btn btn-sm btn-primary" ng-click="redirectToRegister()">
+                Sign up
+            </button>
+            <button class="btn btn-sm btn-primary" ng-click="redirectToLogin()">
+                Log in
             </button>
         </div>
     </div>
