@@ -46,3 +46,7 @@ Temporary Items
 # Visual studio files
 *.suo
 *.njsproj
+*.sln
+
+# Node modules
+node_modules
