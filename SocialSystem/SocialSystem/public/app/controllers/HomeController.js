@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 app.controller('HomeController', ['$scope', '$location', 'identity', 'auth', 'notifier',
-     function ($scope, $location, identity, auth, notifier) {
+     function ($scope, $location, identity, auth, notifier) { 
     $scope.auth = auth;
 
     $scope.redirectToRegister = redirectToRegister;

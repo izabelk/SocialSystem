@@ -10,12 +10,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="user in usersToFollow">
                         <td class="success">
                             <p>{{user.username}}</p>
                         </td>
                         <td>
-                            <button class="btn btn-info" ng-click="followUser(user._id)">Follow</button>
+                            <button class="btn btn-info" ng-click="followUser(user)">Follow</button>
                         </td>
                     </tr>
                 </tbody>
@@ -32,12 +32,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="user in usersToUnfollow">
                         <td class="warning">
                             <p>{{user.username}}</p>
                         </td>
                         <td>
-                            <button class="btn btn-info" ng-click="stopFollowUser(user._id)">Unfollow</button>
+                            <button class="btn btn-info" ng-click="stopFollowUser(user)">Unfollow</button>
                         </td>
                     </tr>
                 </tbody>

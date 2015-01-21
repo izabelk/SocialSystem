@@ -1,8 +1,18 @@
 ﻿'use strict';
 
-app.factory('auth', function ($http, $q, identity, UsersResource) {
+app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) {
     
     return {
+        loadCurrentUser: function () {
+            return UsersService.getCurrentUser()
+                    .then(function (user) {
+                        console.log(user);
+                        identity.currentUser = user;
+                    }, function (error) {
+                        // TODO: handle error.
+                    });
+        },
+
         signup: function (user) {
             var deferred = $q.defer();
             
@@ -24,7 +34,6 @@ app.factory('auth', function ($http, $q, identity, UsersResource) {
                     var user = new UsersResource();
                     angular.extend(user, response.user);
                     identity.currentUser = user;
-                    identity.token = response.token;
                     deferred.resolve(true);
                 }
                 else {

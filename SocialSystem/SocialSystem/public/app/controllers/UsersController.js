@@ -2,45 +2,47 @@
 
 app.controller('UsersController',
     function UsersController($scope, UsersService, identity) {
+     
+    $scope.usersToFollow;
+    $scope.usersToUnfollow;
     
-    $scope.users;
-    //$scope.usersToFollow;
-    //$scope.usersToUnfollow;
-    
-    UsersService.getAllUsers()
+    UsersService.getUsersToFollow()
       .then(function (response) {
-        $scope.users = response;
+        console.log(response);
+        $scope.usersToFollow = response;
     }, function (err) {
         notifier.error(err.error_description);
     });
     
-    //UsersService.getUsersToFollow()
-    //  .then(function (response) {
-    //    $scope.usersToFollow = response;
-    //}, function (err) {
-    //    notifier.error(err.error_description);
-    //});
+    UsersService.getUsersToUnfollow()
+      .then(function (response) {
+        $scope.usersToUnfollow = response;
+    }, function (err) {
+        notifier.error(err.error_description);
+    });
     
-    //UsersService.getUsersToUnfollow()
-    //  .then(function (response) {
-    //    $scope.usersToUnfollow = response;
-    //}, function (err) {
-    //    notifier.error(err.error_description);
-    //});
-    
-    $scope.followUser = function (id) {
-        UsersService.followUser(id)
+    $scope.followUser = function (user) {
+        UsersService.followUser(user._id)
         .then(function (response) {
+            $scope.usersToUnfollow.push(user);
+            var index = $scope.usersToFollow.indexOf(user);
+            if (index > -1) {
+                $scope.usersToFollow.splice(index, 1);
+            }
 
         }, function (err) {
             notifier.error(err.error_description);
         });
     }
     
-    $scope.stopFollowUser = function (id) {
-        UsersService.stopFollowUser(id)
+    $scope.stopFollowUser = function (user) {
+        UsersService.stopFollowUser(user._id)
         .then(function (response) {
-
+            $scope.usersToFollow.push(user);
+            var index = $scope.usersToUnfollow.indexOf(user);
+            if (index > -1) {
+                $scope.usersToUnfollow.splice(index, 1);
+            }
         }, function (err) {
             notifier.error(err.error_description);
         });

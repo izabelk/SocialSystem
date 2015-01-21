@@ -2,8 +2,7 @@
 
 app.factory('identity', function ($window, UsersResource) { 
     return {
-        currentUser: undefined,
-        token: undefined,
+        currentUser: undefined, 
         isAuthenticated: function () {
             return !!this.currentUser;
         }

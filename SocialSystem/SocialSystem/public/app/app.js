@@ -57,11 +57,6 @@ app.config(function ($routeProvider, $locationProvider) {
     });
 });
 
-//app.run(function ($rootScope, $window, notifier) {
-//    $rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
-//        if (rejection === 'not authorized') {
-//            notifier.error('You are not authorized!');
-//            $window.history.back();
-//        }
-//    });
-//});
+app.run(function ($rootScope, $window, notifier, auth) {
+    auth.loadCurrentUser();
+});

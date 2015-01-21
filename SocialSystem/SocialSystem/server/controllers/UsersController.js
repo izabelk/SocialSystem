@@ -45,31 +45,40 @@ module.exports = {
     },
     getUsersToFollow: function (req, res, next) {
         var currentUser = req.user;
-        User.find({
-            $and: [{ $not : { _id: { $in: currentUser.followedUsers } } },
-             { $not: { _id: currentUser._id } }]
-        }, function (err, userData) {
-            if (err) {
-                console.log("Error getting users to follow: " + err);
-            }
-            else {
-                res.send(userData);
-            }
-        });
+        if (currentUser) {
+             User.find({ $and: [ { _id: { $not: { $in: currentUser.followedUsers } } },
+                                 { _id: { $ne: currentUser._id } }] }, function (err, userData) {
+                if (err) {
+                    console.log("Error getting users to follow: " + err);
+                }
+                else {
+                    res.send(userData);
+                }
+            });
+        } else {
+            res.status(403).end();
+        }
     },
+
     getUsersToUnfollow: function (req, res, next) {
+        console.log('in  unfollow');
         var currentUser = req.user;
-        User.find({
-            $and: [{ _id: { $in: currentUser.followedUsers } },
-             { $not: { _id: currentUser._id } }]
-        }, function (err, userData) {
-            if (err) {
-                console.log("Error getting users to unfollow: " + err);
-            }
-            else {
-                res.send(userData);
-            }
-        });
+        if (currentUser) {
+            User.find({
+                $and: [ { _id: { $in: currentUser.followedUsers }},
+                               { _id: { $ne: currentUser._id } }]
+            }, function (err, userData) {
+                if (err) {
+                    console.log("Error getting users to unfollow: " + err);
+                }
+                else {
+                    console.log(userData);
+                    res.send(userData);
+                }
+            });
+        } else {
+            res.status(403).end();
+        }
     },
     followUser: function (req, res, next) {
         var currentUser = req.user;
@@ -94,7 +103,7 @@ module.exports = {
             }
         }
         else {
-            res.send({ success: false });
+            res.status(403).end();
         }
     },
     stopFollowUser: function (req, res, next) {
@@ -120,7 +129,17 @@ module.exports = {
             }
         }
         else {
-            res.send({ success: false });
+            res.status(403).end();
+        }
+    },
+
+    getCurrentUser: function (req, res, next) {
+        var currentUser = req.user;
+        if (currentUser) {
+            res.send(currentUser);
+        } else {
+            res.status(403).end();
         }
     }
+
 };

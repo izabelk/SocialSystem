@@ -12,7 +12,10 @@ module.exports = function (app, config) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(busboy({ immediate: false }));
-    app.use(session({ secret: 'magic unicorns', resave: false, saveUninitialized: true }));
+    app.use(session({
+        cookie: { maxAge: 10 * 3600000 }, // 10 hours
+        secret: 'magic unicorns', resave: true, saveUninitialized: true
+    }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(express.static(config.rootPath + '/public'));

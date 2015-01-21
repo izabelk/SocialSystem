@@ -2,8 +2,22 @@
 
 app.factory('UsersService', function ($http, $q, baseServiceUrl) {
     
-    var usersApi = baseServiceUrl + '/api/users';
+    var usersApi = baseServiceUrl + '/api/users',
+        userApi = baseServiceUrl + '/api/user';
     
+    var getCurrentUser = function () {
+        var deferred = $q.defer();
+
+        $http.get(userApi)
+        .success(function (response) {
+            deferred.resolve(response);
+        }).error(function (err, status) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    }
+
     var getAllUsers = function () {
         var deferred = $q.defer();
         
@@ -74,6 +88,7 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
         followUser: followUser,
         stopFollowUser: stopFollowUser,
         getUsersToFollow: getUsersToFollow,
-        getUsersToUnfollow: getUsersToUnfollow
+        getUsersToUnfollow: getUsersToUnfollow,
+        getCurrentUser: getCurrentUser
     };
 });
