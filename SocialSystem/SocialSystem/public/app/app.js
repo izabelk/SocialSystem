@@ -1,7 +1,8 @@
 ﻿'use strict';
 
 var app = angular.module('app', ['ngResource', 'ngRoute'])
-                 .value('toastr', toastr);
+                 .value('toastr', toastr)
+                 .constant('baseServiceUrl', 'http://localhost:3000')
 
 app.config(function ($routeProvider, $locationProvider) {
     
@@ -29,16 +30,6 @@ app.config(function ($routeProvider, $locationProvider) {
         target: 'body'
     };
     
-    //toastr.options = {
-    //    toastClass: 'alert',
-    //    iconClasses: {
-    //        error: 'alert-error',
-    //        info: 'alert-info',
-    //        success: 'alert-success',
-    //        warning: 'alert-warning'
-    //    }
-    //},
-    
     $routeProvider
         .when('/', {
             templateUrl: 'views/partials/home.html',
@@ -52,7 +43,10 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/login', {
             templateUrl: 'views/partials/login.html',
             controller: 'LoginController'
-
+        })
+        .when('/users', {
+            templateUrl: 'views/partials/users.html',
+            controller: 'UsersController'
         })
          .otherwise({
         redirectTo: '/'

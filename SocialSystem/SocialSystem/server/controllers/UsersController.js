@@ -8,7 +8,7 @@ module.exports = {
         var newUserData = req.body;
         
         if (newUserData.password != newUserData.confirmPassword) {
-            req.session.error = 'Passwords do not match!'; 
+            req.session.error = 'Passwords do not match!';
         }
         else {
             newUserData.salt = encryption.generateSalt();
@@ -27,10 +27,100 @@ module.exports = {
                     else {
                         console.log('success register');
                         console.log(user);
-                        res.send({success: true});
+                        res.send({ success: true });
                     }
                 })
             });
+        }
+    },
+    getAllUsers: function (req, res, next) {
+        User.find({}, function (err, userData) {
+            if (err) {
+                console.log("Error getting all users: " + err);
+            }
+            else {
+                res.send(userData);
+            }
+        });
+    },
+    getUsersToFollow: function (req, res, next) {
+        var currentUser = req.user;
+        User.find({
+            $and: [{ $not : { _id: { $in: currentUser.followedUsers } } },
+             { $not: { _id: currentUser._id } }]
+        }, function (err, userData) {
+            if (err) {
+                console.log("Error getting users to follow: " + err);
+            }
+            else {
+                res.send(userData);
+            }
+        });
+    },
+    getUsersToUnfollow: function (req, res, next) {
+        var currentUser = req.user;
+        User.find({
+            $and: [{ _id: { $in: currentUser.followedUsers } },
+             { $not: { _id: currentUser._id } }]
+        }, function (err, userData) {
+            if (err) {
+                console.log("Error getting users to unfollow: " + err);
+            }
+            else {
+                res.send(userData);
+            }
+        });
+    },
+    followUser: function (req, res, next) {
+        var currentUser = req.user;
+        
+        if (currentUser) {
+            var id = req.params.id;
+            if (id) {
+                User.findOne({ _id: id }, function (err, userToFollow) {
+                    if (err) {
+                        console.log("Error getting user to follow");
+                    }
+                    else {
+                        User.update({ _id: currentUser._id }, { $push: { followedUsers: userToFollow._id } },
+                             function (error, num) {
+                            if (error) {
+                                console.log(error);
+                            }
+                        });
+                        res.send({ success: true });
+                    }
+                });
+            }
+        }
+        else {
+            res.send({ success: false });
+        }
+    },
+    stopFollowUser: function (req, res, next) {
+        var currentUser = req.user;
+        
+        if (currentUser) {
+            var id = req.params.id;
+            if (id) {
+                User.findOne({ _id: id }, function (err, userToFollow) {
+                    if (err) {
+                        console.log("Error getting user to strop follow");
+                    }
+                    else {
+                        User.update({ _id: currentUser._id }, { $pull: { followedUsers: userToFollow._id } },
+                             function (error, num) {
+                            if (error) {
+                                console.log(error);
+                            }
+                        });
+                        res.send({ success: true });
+                    }
+                });
+            }
+        }
+        else {
+            res.send({ success: false });
         }
     }
 };

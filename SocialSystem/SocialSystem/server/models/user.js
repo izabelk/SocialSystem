@@ -12,7 +12,7 @@ module.exports.init = function () {
         salt: String,
         hashPass: String,
         registeredOn: Date,
-        followedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+        followedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true }],
         messages: [mongoose.model('Message').schema],
         verified: Boolean
     });

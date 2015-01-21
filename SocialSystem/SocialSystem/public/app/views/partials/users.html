@@ -1,0 +1,48 @@
+<div class="container text-center">
+    <div class="row text-center">
+        <div class="col-md-6 text-center">
+            <h4>Follow</h4>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">Users</th>
+                        <th class="text-center">Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td class="success">
+                            <p>{{user.username}}</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-info" ng-click="followUser(user._id)">Follow</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <h4>Unfollow</h4>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">Users</th>
+                        <th class="text-center">Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td class="warning">
+                            <p>{{user.username}}</p>
+                        </td>
+                        <td>
+                            <button class="btn btn-info" ng-click="stopFollowUser(user._id)">Unfollow</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
