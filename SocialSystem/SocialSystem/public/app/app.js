@@ -49,8 +49,8 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'UsersController'
         })
         .when('/newsfeed', {
-            templateUrl: 'views/partials/newsfeed.html',
-            controller: 'MessagesController'
+            templateUrl: 'views/partials/newsfeed.html'
+            //controller: 'MessagesController'
         })
          .otherwise({
         redirectTo: '/'
