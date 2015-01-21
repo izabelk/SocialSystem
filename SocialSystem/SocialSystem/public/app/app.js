@@ -48,6 +48,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'views/partials/users.html',
             controller: 'UsersController'
         })
+        .when('/post', {
+            templateUrl: 'views/partials/post-message.html'
+            //controller: 'UsersController'
+        })
          .otherwise({
         redirectTo: '/'
     });
