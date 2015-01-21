@@ -3,11 +3,26 @@
 var CONTROLLER_NAME = 'messages';
 
 module.exports = {
-	getMessages: function(req, res, next) {
-		console.log(req.user);
+	postMessage: function(req, res, next) {
+		var currentUser = req.user;
+		if (currentUser) {
+			var message = req.body.message;
+			message.date = new Date();
+			message.author = req.user._id;
 
-		res.send({
-			messages: [] 
-		});
+			Message.create(message, function (err, message) {
+                if (err) {
+                    console.log('Failed to post message: ' + message);
+                    res.status(500).end();
+                } else {
+					res.status(200).end();
+                }
+            });
+		} else {
+			res.status(403).end();
+		}
+	},
+
+	getMessages: function(req, res, next) {
 	}
 };
