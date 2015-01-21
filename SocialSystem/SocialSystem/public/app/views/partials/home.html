@@ -1,23 +1,29 @@
 ﻿<div class="container">
-    <div class="jumbotron" clas="text-center">
-        <h2 class="text-center">Welcome to Hirundo! Connect with your friends from every angle!</h2>
+    <div class="row">
+        <div class="jumbotron" clas="text-center">
+            <h2 class="text-center">Welcome to Hirundo! Connect with your friends from every angle!</h2>
+        </div>
     </div>
     <div class="row text-center">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4wGDXBxJl9MMX-MXRiA2mNXDGTdSuaH4AtNiaVb_ZNPgQZ7Mc" />
+        <img src="http://www.christineellison.com/wp-content/uploads/2013/11/social-work-lecture-series.jpg"
+             style="width:60%;height:50%" />
     </div>
-    <div class="row">
-        <div class="col-md-4" ng-show="auth.isAuthenticated()">
+    <br />
+    <div class="row text-center">
+        <div class="col-md-12 text-center" ng-if="auth.isAuthenticated()">
             <button class="btn btn-sm btn-primary" ng-click="logout()">
                 Log out
             </button>
         </div>
-        <div class="col-md-4" ng-show="!auth.isAuthenticated()">
+        <div class="col-md-12 text-center" ng-if="!auth.isAuthenticated()">
             <button class="btn btn-sm btn-primary" ng-click="redirectToRegister()">
-                Sign up
+                Register
             </button>
             <button class="btn btn-sm btn-primary" ng-click="redirectToLogin()">
                 Log in
             </button>
         </div>
     </div>
+    <div class="row"></div>
+    <br />
 </div>

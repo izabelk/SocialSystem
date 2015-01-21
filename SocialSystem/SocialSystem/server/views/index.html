@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <title>Social app</title>
-
+    <title>Social System</title>
     <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <!--<link rel="stylesheet" href="../../lib/toastr/toastr.css" type="text/css" />-->
 </head>
 <body>
-    <data-ng-view />
+    <section>
+        <div ng-view />
+    </section>
+
+    <footer>
+        <p class="text-center">&copy; Hirundo Social System</p>
+    </footer>
 
     <script src="../../lib/jquery/dist/jquery.js"></script>
     <script src="../../lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -15,7 +21,6 @@
     <script src="../../lib/angular-route/angular-route.js"></script>
     <script src="../../lib/angular-resource/angular-resource.js"></script>
     <script src="../../lib/toastr/toastr.js"></script>
-
 
     <script src="../../app/app.js"></script>
     <script src="../../app/controllers/RegisterController.js"></script>
@@ -27,5 +32,5 @@
     <script src="../../app/services/account/identity.js"></script>
     <script src="../../app/services/notifier.js"></script>
 
-</body>			
+</body>
 </html>

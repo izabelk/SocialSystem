@@ -1,11 +1,45 @@
-<div class='container'>  
+<!--<div class="container">  
     <form class="form-signin" name="loginForm">
-      <h2 class="form-signin-heading">Please sign in</h2>
+      <h2 class="form-signin-heading">Please log in</h2>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input id="inputEmail" class="form-control" placeholder="Email address" required autofocus ng-model='user.email'>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model='user.password'>
       <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click='login(user, loginForm)'>Sign in</button>
     </form>
-</div>
+</div>-->
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Log in</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class=" well bs-component">
+                <form class="form-horizontal" name="loginForm">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="inputEmail" ng-model="user.email" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                            <div class="col-lg-10">
+                                <input type="password" class="form-control" id="inputPassword" ng-model="user.password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit" class="btn btn-primary" ng-click='login(user, loginForm)'>Log in</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

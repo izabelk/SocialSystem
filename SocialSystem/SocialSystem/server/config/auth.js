@@ -9,12 +9,12 @@ module.exports = {
             }
             
             req.logIn(user, function (err) {
-                console.log(err);
                 if (err) {
                     return next(err);
                 }
-                
-                res.send({ success: true, user: user });
+                else {
+                    res.send({ success: true, user: user });
+                }
             })
         });
         
