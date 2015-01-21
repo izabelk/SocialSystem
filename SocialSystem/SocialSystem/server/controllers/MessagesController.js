@@ -6,7 +6,7 @@ module.exports = {
 	postMessage: function(req, res, next) {
 		var currentUser = req.user;
 		if (currentUser) {
-			var message = req.body.message;
+			var message = req.body;
 			message.date = new Date();
 			message.author = req.user._id;
 
