@@ -24,5 +24,19 @@ module.exports = {
 	},
 
 	getMessages: function(req, res, next) {
+		var currentUser = req.user;
+		if (currentUser) {
+			Message.find({
+				author: {$in: currentUser.followedUsers}
+			}).sort({'date': -1}).limit(50).exec(function(err, messages) {
+				if (err) {
+					res.status(500).end();
+				} else {
+					res.status(200).send(messages);
+				}
+			});
+		} else {
+			res.status(403).end();
+		}
 	}
 };
