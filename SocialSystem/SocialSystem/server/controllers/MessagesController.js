@@ -28,14 +28,15 @@ module.exports = {
 		if (currentUser) {
 			Message.find({
 				author: {$in: currentUser.followedUsers}
-			}).sort({'date': -1}).limit(50).exec(function(err, messages) {
+			}).sort({'date': -1}).limit(50).populate('author', 'username').exec(function(err, messages) {
 				if (err) {
 					res.status(500).end();
 				} else {
 					res.status(200).send(messages);
 				}
 			});
-		} else {
+        } 
+        else {
 			res.status(403).end();
 		}
 	}

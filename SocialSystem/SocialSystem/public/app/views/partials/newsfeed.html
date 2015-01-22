@@ -31,4 +31,25 @@
             </div>
         </div>
     </div>
+    <h3>Messages</h3>
+    <ul style="list-style-type:none">
+        <li ng-repeat="message in messages">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bs-component">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{message.content}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <b>By:</b> {{message.author.username}}
+                                <br />
+                                <b>Posted on</b> {{message.date | date : 'medium'}} <b>from</b> {{message.place}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

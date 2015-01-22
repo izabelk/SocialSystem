@@ -29,7 +29,7 @@ module.exports = function (app) {
     app.route('/api/user')
         .get(controllers.users.getCurrentUser);
 
-    app.route('/api/messages/')
+    app.route('/api/messages')
         .post(controllers.messages.postMessage)
         .get(controllers.messages.getMessages);
 
@@ -39,9 +39,4 @@ module.exports = function (app) {
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../views', 'index.html'));
     });
-    
-    
-    
-    
-    app.route('/api/messages').get(controllers.messages.getMessages);
 };
