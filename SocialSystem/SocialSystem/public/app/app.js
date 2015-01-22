@@ -17,17 +17,17 @@ app.config(function ($routeProvider, $locationProvider) {
     toastr.options = {
         toastClass: 'alert',
         iconClasses: {
-            error: 'alert-error',
+            error: 'alert-danger',
             success: 'alert-success',
             info: 'alert-info',
             warning: 'alert-warning'
         },
-        positionClass: '', // I position it properly already. not needed.
+        positionClass: 'toast-top-left', // I position it properly already. not needed.
         fadeIn : 100, // .3 seconds
         fadeOut: 200, // .3 seconds
         timeOut: 2000, // 2 seconds – set to 0 for “infinite”
         extendedTimeOut: 2000, // 2 seconds more if the user interact with it
-        target: 'body'
+        target: 'body',
     };
     
     $routeProvider

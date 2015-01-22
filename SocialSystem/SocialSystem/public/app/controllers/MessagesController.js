@@ -1,6 +1,16 @@
 ﻿'use strict';
 
-app.controller('MessagesController', ['$scope', 'MessagesService', 'notifier', function ($scope, MessagesService, notifier) {
+app.controller('MessagesController', ['$scope', '$timeout', 'MessagesService', 'notifier',
+     function ($scope, $timeout, MessagesService, notifier) {
+    
+    $timeout(function () {
+        MessagesService.getMessages()
+        .then(function (response) {
+            $scope.messages = response;
+        }, function (err) {
+            notifier.error('Messages could not be loaded.');
+        });
+     }, 30 * 1000);
     
     MessagesService.getMessages()
         .then(function (response) {
@@ -8,6 +18,15 @@ app.controller('MessagesController', ['$scope', 'MessagesService', 'notifier', f
     }, function (err) {
         notifier.error('Messages could not be loaded.');
     });
+    
+    $scope.areMessagesEmpty = function () {
+        if ($scope.messages) {
+            return $scope.messages.length === 0;
+        }
+        else {
+            return false;
+        }
+    }
 
     $scope.postMessage = function (message, messageForm) {
         if (messageForm.$valid) {

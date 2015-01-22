@@ -32,6 +32,7 @@
         </div>
     </div>
     <h3>Messages</h3>
+    <h4 ng-if="areMessagesEmpty()">No new messages available.</h4>
     <ul style="list-style-type:none">
         <li ng-repeat="message in messages">
             <div class="row">
