@@ -1,4 +1,12 @@
-﻿<ul class="nav navbar-nav  pull-right" ng-controller="NavController">
+﻿<ul class="nav navbar-nav" ng-controller="NavController">
+    <li ng-show="isAuthenticated()">
+        <a href="#/users">Users</a>
+    </li>
+    <li ng-show="isAuthenticated()">
+        <a href="#/newsfeed">News feed</a>
+    </li>
+</ul>
+<ul class="nav navbar-nav  pull-right" ng-controller="NavController">
     <li ng-show="!isAuthenticated()">
         <a href="#/register">Register</a>
     </li>
@@ -9,6 +17,6 @@
         <a>Hi, {{currentUser}}</a>
     </li>
     <li ng-show="isAuthenticated()">
-        <a href="#/" ng-click="logout()">Logout</a>
+        <a href="#/" ng-click="logout()">Log out</a>
     </li>
 </ul>
