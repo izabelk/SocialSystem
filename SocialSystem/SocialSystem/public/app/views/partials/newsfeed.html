@@ -40,12 +40,19 @@
                     <div class="bs-component">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">{{message.content}}</h3>
+                                <h3 class="panel-title">{{message.author.username}}</h3>
                             </div>
                             <div class="panel-body">
-                                <b>By:</b> {{message.author.username}}
+                                <span>{{message.content}}</span>
                                 <br />
-                                <b>Posted on</b> {{message.date | date : 'medium'}} <b>from</b> {{message.place}}
+                                <br />
+                                <span class="pull-right">
+                                    <b>Posted on: </b> {{message.date | date : 'medium'}}
+                                </span>
+                                <br />
+                                <span class="pull-right">
+                                    <em>from</em> {{message.place}}
+                                </span>
                             </div>
                         </div>
                     </div>
