@@ -16,9 +16,9 @@ module.exports = function (app) {
         .post(controllers.users.postRegister)
         .get(controllers.users.getAllUsers);
     
-    app.route('/api/users/followed').get(controllers.users.getUsersToFollow);
+    app.route('/api/users/tofollow').get(controllers.users.getUsersToFollow);
     
-    app.route('/api/users/unfollowed').get(controllers.users.getUsersToUnfollow);
+    app.route('/api/users/followed').get(controllers.users.getFollowedUsers);
     
     app.route('/api/users/follow-user/:id')
         .post(controllers.users.followUser);

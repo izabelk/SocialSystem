@@ -13,27 +13,10 @@ app.config(function ($routeProvider, $locationProvider) {
     //        }
     //    }
     //};
-    
-    toastr.options = {
-        toastClass: 'alert',
-        iconClasses: {
-            error: 'alert-danger',
-            success: 'alert-success',
-            info: 'alert-info',
-            warning: 'alert-warning'
-        },
-        positionClass: 'toast-top-left', // I position it properly already. not needed.
-        fadeIn : 100, // .3 seconds
-        fadeOut: 200, // .3 seconds
-        timeOut: 2000, // 2 seconds – set to 0 for “infinite”
-        extendedTimeOut: 2000, // 2 seconds more if the user interact with it
-        target: 'body',
-    };
-    
+        
     $routeProvider
         .when('/', {
             templateUrl: 'views/partials/home.html'
-            //controller: 'HomeController'
         })
         .when('/register', {
             templateUrl: 'views/partials/register.html',

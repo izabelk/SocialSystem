@@ -60,8 +60,7 @@ module.exports = {
         }
     },
 
-    getUsersToUnfollow: function (req, res, next) {
-        console.log('in  unfollow');
+    getFollowedUsers: function (req, res, next) {
         var currentUser = req.user;
         if (currentUser) {
             User.find({

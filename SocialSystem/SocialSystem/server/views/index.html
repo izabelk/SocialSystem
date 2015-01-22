@@ -4,7 +4,7 @@
     <title>Social System</title>
     <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
-    <!--<link rel="stylesheet" href="../../lib/toastr/toastr.css" type="text/css" />-->
+    <link rel="stylesheet" href="../../lib/toastr/toastr.css" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -26,27 +26,7 @@
                         <a href="#/newsfeed">News feed</a>
                     </li>
                 </ul>
-                <!--<div ng-if="!auth.isAuthenticated()">
-                    <div ng-include="'../../app/views/partials/nav.html'"></div>
-                </div>
-                <div ng-if="auth.isAuthenticated()">
-                    <div ng-include="'../../app/views/partials/nav1.html'"></div>
-                </div>-->
-                
                 <div ng-include="'../../app/views/partials/nav.html'"></div>
-                <!--<ul class="nav navbar-nav pull-right" ng-if="!auth.isAuthenticated()">
-                    <li>
-                        <a href="#/register">Register</a>
-                    </li>
-                    <li>
-                        <a href="#/login">Login</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav pull-right" ng-if="auth.isAuthenticated()">
-                    <li>
-                        <a href="#/logout">Logout</a>
-                    </li>
-                </ul>-->
             </div>
         </div>
     </div>
@@ -72,7 +52,6 @@
     <script src="../../app/app.js"></script>
     <script src="../../app/controllers/RegisterController.js"></script>
     <script src="../../app/controllers/LoginController.js"></script>
-    <script src="../../app/controllers/HomeController.js"></script>
     <script src="../../app/controllers/UsersController.js"></script>
     <script src="../../app/controllers/MessagesController.js"></script>
     <script src="../../app/controllers/NavController.js"></script>

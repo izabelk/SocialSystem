@@ -34,7 +34,7 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
     var getUsersToFollow = function () {
         var deferred = $q.defer();
         
-        $http.get(usersApi + '/followed')
+        $http.get(usersApi + '/tofollow')
         .success(function (response) {
             deferred.resolve(response);
         }).error(function (err, status) {
@@ -47,7 +47,7 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
     var getUsersToUnfollow = function () {
         var deferred = $q.defer();
         
-        $http.get(usersApi + '/unfollowed')
+        $http.get(usersApi + '/followed')
         .success(function (response) {
             deferred.resolve(response);
         }).error(function (err, status) {

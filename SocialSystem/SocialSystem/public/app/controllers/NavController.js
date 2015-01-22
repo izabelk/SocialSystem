@@ -1,10 +1,12 @@
 ﻿'use strict';
 
-app.controller('NavController', function ($scope, auth, notifier) {
+app.controller('NavController', function ($scope, auth, identity, notifier) {
 
     $scope.isAuthenticated = function (){
         return auth.isAuthenticated();
     }
+    
+    $scope.currentUser = identity.currentUser.username;
 
     $scope.logout = function() {
         auth.logout()

@@ -6,7 +6,7 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
         loadCurrentUser: function () {
             return UsersService.getCurrentUser()
                     .then(function (user) {
-                        console.log(user);
+                        //console.log(user);
                         identity.currentUser = user;
                     }, function (error) {
                          console.log("Error getting current user: " + error);
