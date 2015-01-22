@@ -138,8 +138,8 @@ module.exports = {
         if (currentUser) {
             res.send(currentUser);
         } else {
-            res.status(403).end();
+            res.send(null);
+            //res.status(403).end();
         }
     }
-
 };

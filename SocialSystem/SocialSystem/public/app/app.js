@@ -32,13 +32,12 @@ app.config(function ($routeProvider, $locationProvider) {
     
     $routeProvider
         .when('/', {
-            templateUrl: 'views/partials/home.html',
-            controller: 'HomeController'
+            templateUrl: 'views/partials/home.html'
+            //controller: 'HomeController'
         })
         .when('/register', {
             templateUrl: 'views/partials/register.html',
             controller: 'RegisterController'
-
         })
         .when('/login', {
             templateUrl: 'views/partials/login.html',
@@ -46,11 +45,13 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/users', {
             templateUrl: 'views/partials/users.html',
-            controller: 'UsersController'
+            controller: 'UsersController',
+            //resolve: routeUserChecks.authenticated
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
-            controller: 'MessagesController'
+            controller: 'MessagesController',
+            //resolve: routeUserChecks.authenticated
         })
          .otherwise({
         redirectTo: '/'
@@ -59,4 +60,10 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.run(function ($rootScope, $window, notifier, auth) {
     auth.loadCurrentUser();
+    //$rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
+    //    if (rejection === 'not authorized') {
+    //        notifier.error('You are not authorized!');
+    //        $window.history.back();
+    //    }
+    //});
 });

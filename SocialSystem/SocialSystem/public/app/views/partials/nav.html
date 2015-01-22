@@ -1,0 +1,11 @@
+﻿<ul class="nav navbar-nav  pull-right" ng-controller="NavController">
+    <li ng-show="!isAuthenticated()">
+        <a href="#/register">Register</a>
+    </li>
+    <li ng-show="!isAuthenticated()">
+        <a href="#/login">Login</a>
+    </li>
+    <li ng-show="isAuthenticated()">
+        <a href="#/" ng-click="logout()">Logout</a>
+    </li>
+</ul>

@@ -9,7 +9,7 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
                         console.log(user);
                         identity.currentUser = user;
                     }, function (error) {
-                        // TODO: handle error.
+                         console.log("Error getting current user: " + error);
                     });
         },
 
@@ -54,6 +54,12 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
             return deferred.promise;
         },
         isAuthenticated: function () {
+            //if (identity.isAuthenticated()) {
+            //    return true;
+            //}
+            //else {
+            //    return $q.reject('not authorized');
+            //}
             return identity.isAuthenticated();
         }
     };
