@@ -6,15 +6,14 @@
     passport = require('passport');
 
 module.exports = function (app, config) {
-    app.set('view engine', 'jade');
     app.set('views', config.rootPath + '/server/views');
-    app.use(cookieParser());
+    app.use(cookieParser("izi"));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(busboy({ immediate: false }));
     app.use(session({
         cookie: { maxAge: 10 * 3600000 }, // 10 hours
-        secret: 'magic unicorns', resave: true, saveUninitialized: true
+        secret: 'magic unicorns', resave: false, saveUninitialized: true
     }));
     app.use(passport.initialize());
     app.use(passport.session());

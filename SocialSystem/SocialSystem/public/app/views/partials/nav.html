@@ -14,7 +14,7 @@
         <a href="#/login">Login</a>
     </li>
     <li ng-show="isAuthenticated()">
-        <a>Hi, {{currentUser}}</a>
+        <a>Hi, {{getCurrentUser()}}</a>
     </li>
     <li ng-show="isAuthenticated()">
         <a href="#/" ng-click="logout()">Log out</a>

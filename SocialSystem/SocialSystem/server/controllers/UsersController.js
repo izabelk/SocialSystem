@@ -71,7 +71,6 @@ module.exports = {
                     console.log("Error getting users to unfollow: " + err);
                 }
                 else {
-                    console.log(userData);
                     res.send(userData);
                 }
             });
@@ -135,8 +134,10 @@ module.exports = {
     getCurrentUser: function (req, res, next) {
         var currentUser = req.user;
         if (currentUser) {
+            console.log("IMA USER");
             res.send(currentUser);
         } else {
+            console.log("NQMA USER");
             res.send(null);
             //res.status(403).end();
         }

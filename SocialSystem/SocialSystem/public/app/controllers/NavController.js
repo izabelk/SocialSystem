@@ -6,7 +6,11 @@ app.controller('NavController', function ($scope, auth, identity, notifier) {
         return auth.isAuthenticated();
     }
     
-    $scope.currentUser = identity.currentUser.username;
+    $scope.getCurrentUser = function () {
+        if (identity.currentUser) {
+            return identity.currentUser.username;
+        }
+    }
 
     $scope.logout = function() {
         auth.logout()

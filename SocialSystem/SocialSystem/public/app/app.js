@@ -6,13 +6,13 @@ var app = angular.module('app', ['ngResource', 'ngRoute'])
 
 app.config(function ($routeProvider, $locationProvider) {
     
-    //var routeUserChecks = {
-    //    authenticated: {
-    //        authenticate: function (auth) {
-    //            return auth.isAuthenticated();
-    //        }
-    //    }
-    //};
+    var routeUserChecks = {
+        authenticated: {
+            authenticate: function (auth) {
+                return auth.isAuthenticated();
+            }
+        }
+    };
         
     $routeProvider
         .when('/', {
@@ -29,12 +29,12 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/users', {
             templateUrl: 'views/partials/users.html',
             controller: 'UsersController',
-            //resolve: routeUserChecks.authenticated
+            resolve: routeUserChecks.authenticated
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
             controller: 'MessagesController',
-            //resolve: routeUserChecks.authenticated
+            resolve: routeUserChecks.authenticated
         })
          .otherwise({
         redirectTo: '/'
