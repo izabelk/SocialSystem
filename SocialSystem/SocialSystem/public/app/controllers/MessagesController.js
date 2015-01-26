@@ -38,7 +38,7 @@ app.controller('MessagesController', ['$scope', '$timeout', '$sce', 'MessagesSer
                 .then(function () {
                 notifier.success('Message posted successfully!');
             }, function () {
-                notifier.error('An error occured while posting message.');
+                notifier.error('An error occured while posting the message.');
             });
         }
         else {

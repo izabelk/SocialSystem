@@ -11,12 +11,12 @@ app.controller('LoginController', ['$scope', '$location', 'notifier', 'identity'
                     $location.path('/');
                 }
                 else {
-                    notifier.error('Username/Password combination is not valid!');
+                    notifier.error('Invalid username or password.');
                 }
             });
         }
         else {
-            notifier.error('Username and password are required fields!')
+            notifier.error('Username and password are required.')
         }
     }
 

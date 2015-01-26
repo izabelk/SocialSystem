@@ -6,10 +6,9 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
         loadCurrentUser: function () {
             return UsersService.getCurrentUser()
                     .then(function (user) {
-                        //console.log(user);
                         identity.currentUser = user;
                     }, function (error) {
-                         console.log("Error getting current user: " + error);
+                        notifier.error('Failed to load the current user.');
                     });
         },
 
@@ -54,12 +53,6 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
             return deferred.promise;
         },
         isAuthenticated: function () {
-            //if (identity.isAuthenticated()) {
-            //    return true;
-            //}
-            //else {
-            //    return $q.reject('not authorized');
-            //}
             return identity.isAuthenticated();
         }
     };

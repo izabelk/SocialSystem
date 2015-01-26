@@ -12,8 +12,7 @@ module.exports = {
             
             Message.create(message, function (err, message) {
                 if (err) {
-                    console.log('Failed to post message: ' + message);
-                    res.status(500).end();
+                    res.status(500).send('Failed to create the message.');
                 } else {
                     res.status(200).end();
                 }
@@ -28,9 +27,13 @@ module.exports = {
         if (currentUser) {
             Message.find({
                 author: { $in: currentUser.followedUsers }
-            }).sort({ 'date': -1 }).limit(50).populate('author', 'username').exec(function (err, messages) {
+            })
+            .sort({ 'date': -1 })
+            .limit(50)
+            .populate('author', 'username')
+            .exec(function (err, messages) {
                 if (err) {
-                    res.status(500).end();
+                    res.status(500).send('Failed to get messages');
                 } else {
                     res.status(200).send(messages);
                 }
@@ -42,21 +45,26 @@ module.exports = {
     },
     
     getMessagesByHashTag: function (req, res, next) {
-        var tags = req.params.tag.split('&');
-        
-        for (var i in tags) {
-            tags[i] = "#" + tags[i];
-        }
-        
-        Message.find({ content: { $in: tags } }, 
+        var currentUser = req.user;
+        if (currentUser) {
+            var tags = req.params.tag.split('&');
+            
+            for (var i in tags) {
+                tags[i] = "#" + tags[i];
+            }
+            
+            Message.find({ content: { $in: tags } }, 
             function (err, filteredMessages) {
-            if (err) {
-                res.status(500).send("Error getting messages by " + tag);
-            }
-            else {
-                //console.log(filteredMessages);
-                res.send(filteredMessages);
-            }
-        });
+                if (err) {
+                    res.status(500).send("Failed to get messages by tag " + tag);
+                }
+                else {
+                    res.status(200).send(filteredMessages);
+                }
+            });
+        }
+        else {
+            res.status(403).end();
+        }
     }
 };
