@@ -6,13 +6,21 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngSanitize'])
 
 app.config(function ($routeProvider, $locationProvider) {
     
-    var routeUserChecks = {
-        authenticated: {
-            authenticate: function (auth) {
-                return auth.isAuthenticated();
-            }
+    var loginRequired = function ($location, $q, auth, notifier) {
+
+        var deferred = $q.defer();
+        
+        if (auth.isAuthenticated()) {
+            deferred.resolve();
+        } 
+        else {
+            deferred.reject();
+            notifier.info('Please login.');
+            $location.path('/login');
         }
-    };
+        
+        return deferred.promise;
+    }
         
     $routeProvider
         .when('/', {
@@ -29,12 +37,12 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/users', {
             templateUrl: 'views/partials/users.html',
             controller: 'UsersController',
-            resolve: routeUserChecks.authenticated
+            resolve: { loginRequired: loginRequired }
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
             controller: 'MessagesController',
-            resolve: routeUserChecks.authenticated
+            resolve: { loginRequired: loginRequired }
         })
          .otherwise({
         redirectTo: '/'
