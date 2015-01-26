@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-app.controller('NavController', function ($scope, auth, identity, notifier) {
+app.controller('NavController', ['$scope','auth', 'identity', 'notifier',
+     function ($scope, auth, identity, notifier) {
 
     $scope.isAuthenticated = function (){
         return auth.isAuthenticated();
@@ -20,4 +21,4 @@ app.controller('NavController', function ($scope, auth, identity, notifier) {
             notifier.error("An error occured during logout.");
         });
     }
-});
+}]);

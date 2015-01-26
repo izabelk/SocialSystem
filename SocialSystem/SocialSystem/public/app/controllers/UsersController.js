@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('UsersController',
+app.controller('UsersController', ['$scope', 'UsersService', 'identity',
     function UsersController($scope, UsersService, identity) {
      
     $scope.usersToFollow;
@@ -48,4 +48,4 @@ app.controller('UsersController',
         });
     }
     
-});
+}]);
