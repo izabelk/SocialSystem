@@ -28,11 +28,14 @@ module.exports = function (app) {
     
     app.route('/api/user')
         .get(controllers.users.getCurrentUser);
-
+    
     app.route('/api/messages')
         .post(controllers.messages.postMessage)
         .get(controllers.messages.getMessages);
-
+    
+    app.route('/api/filteredMessages/:tag')
+        .get(controllers.messages.getMessagesByHashTag);
+    
     app.route('/api/login').post(auth.login);
     app.route('/api/logout').post(auth.logout);
 

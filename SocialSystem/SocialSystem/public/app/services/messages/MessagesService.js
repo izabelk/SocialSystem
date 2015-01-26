@@ -2,7 +2,8 @@
 
 app.factory('MessagesService', function ($http, $q, baseServiceUrl) {
     
-    var messagesApi = baseServiceUrl + '/api/messages';
+    var messagesApi = baseServiceUrl + '/api/messages',
+        filteredMessagesApi = baseServiceUrl + '/api/filteredMessages/';
     
     var postMessage = function (message) {
         var deferred = $q.defer();
@@ -30,8 +31,23 @@ app.factory('MessagesService', function ($http, $q, baseServiceUrl) {
         return deferred.promise;
     }
     
+    var getFilteredMessages = function (tagsQuery) {
+        var deferred = $q.defer();
+        
+        //console.log(filteredMessagesApi + tagsQuery);
+        $http.get(filteredMessagesApi + tagsQuery)
+        .success(function (response) {
+            deferred.resolve(response);
+        }).error(function (err, status) {
+            deferred.reject(err);
+        });
+        
+        return deferred.promise;
+    }
+    
     return {
         postMessage: postMessage,
-        getMessages: getMessages
+        getMessages: getMessages,
+        getFilteredMessages: getFilteredMessages
     };
 });

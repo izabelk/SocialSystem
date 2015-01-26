@@ -3,6 +3,10 @@
 app.controller('MessagesController', ['$scope', '$timeout', 'MessagesService', 'notifier',
      function ($scope, $timeout, MessagesService, notifier) {
     
+    $scope.hashTagQuery = '';
+    $scope.messages;
+    $scope.filters = [];
+    
     $timeout(function () {
         MessagesService.getMessages()
         .then(function (response) {
@@ -40,5 +44,51 @@ app.controller('MessagesController', ['$scope', '$timeout', 'MessagesService', '
         else {
             notifier.error('Incorrect message.')
         }
+    }
+
+    $scope.containsHashTag = function (msg) {
+        return msg.content[0] === "#";
+    }
+    
+    $scope.filtersExist = function () {
+        return $scope.hashTagQuery !== '';
+    }
+    
+    $scope.collectFilter = function ($event) {
+        
+        var hashTag = $event.currentTarget.innerText;
+        hashTag = hashTag.substr(1);
+        $scope.hashTagQuery = $scope.hashTagQuery.trim();
+        $scope.filters.push(hashTag);
+
+        if ($scope.hashTagQuery === '') {
+            $scope.hashTagQuery += hashTag;
+        }
+        else {
+            $scope.hashTagQuery = $scope.hashTagQuery + '&' + hashTag;
+        }
+    }
+    
+    $scope.getAllMessages = function () {
+        
+        $scope.hashTagQuery = '';
+        $scope.filters = [];
+
+        MessagesService.getMessages()
+        .then(function (response) {
+            $scope.messages = response;
+        }, function (err) {
+            notifier.error('Messages could not be loaded.');
+        });
+    }
+
+    $scope.getFilteredMessages = function () {
+       
+        MessagesService.getFilteredMessages($scope.hashTagQuery)
+            .then(function (response) {
+                $scope.messages = response;
+            }, function (err) {
+                notifier.error('Messages could not be loaded.');
+            });
     }
 }])

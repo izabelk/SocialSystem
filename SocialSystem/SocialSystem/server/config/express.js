@@ -7,13 +7,13 @@
 
 module.exports = function (app, config) {
     app.set('views', config.rootPath + '/server/views');
-    app.use(cookieParser("izi"));
+    app.use(cookieParser("MagicSecret"));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(busboy({ immediate: false }));
     app.use(session({
         cookie: { maxAge: 10 * 3600000 }, // 10 hours
-        secret: 'magic unicorns', resave: false, saveUninitialized: true
+        secret: 'magic unicorns', resave: true, saveUninitialized: true
     }));
     app.use(passport.initialize());
     app.use(passport.session());

@@ -31,8 +31,24 @@
             </div>
         </div>
     </div>
+
     <h3>Messages</h3>
+    <div class="bs-component" ng-if="filtersExist()">
+        <span class="label label-success" ng-repeat="filter in filters" style="margin-right:5px">
+            {{filter}}
+        </span>
+    </div>
+
     <h4 ng-if="areMessagesEmpty()">No new messages available.</h4>
+    <button class="btn btn-info pull-right" ng-if="filtersExist()" ng-click="getFilteredMessages()">
+        Filter messages
+    </button>
+    <br />
+    <br />
+    <br />
+    <button class="btn btn-info pull-right" ng-if="filtersExist()" ng-click="getAllMessages()">
+        Clear filters
+    </button>
     <ul style="list-style-type:none">
         <li ng-repeat="message in messages">
             <div class="row">
@@ -43,7 +59,10 @@
                                 <h3 class="panel-title">{{message.author.username}}</h3>
                             </div>
                             <div class="panel-body">
-                                <span>{{message.content}}</span>
+                                <a ng-if="containsHashTag(message)" ng-click="collectFilter($event)">
+                                    {{message.content}}
+                                </a>
+                                <span ng-if="!containsHashTag(message)">{{message.content}}</span>
                                 <br />
                                 <br />
                                 <span class="pull-right">
@@ -60,4 +79,5 @@
             </div>
         </li>
     </ul>
+    
 </div>
