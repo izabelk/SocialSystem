@@ -7,7 +7,7 @@
 
 module.exports = function (app, config) {
     app.set('views', config.rootPath + '/server/views');
-    app.use(cookieParser("MagicSecret"));
+    app.use(cookieParser('magic unicorns'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(busboy({ immediate: false }));

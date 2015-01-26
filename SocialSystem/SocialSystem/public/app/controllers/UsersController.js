@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-app.controller('UsersController', ['$scope', 'UsersService', 'identity',
-    function UsersController($scope, UsersService, identity) {
+app.controller('UsersController', ['$scope', 'UsersService', 'identity', 'notifier',
+    function UsersController($scope, UsersService, identity, notifier) {
      
     $scope.usersToFollow;
     $scope.followedUsers;
@@ -10,14 +10,14 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
       .then(function (response) {
         $scope.usersToFollow = response;
     }, function (err) {
-        notifier.error(err.error_description);
+        notifier.error('Failed to load users to follow.');
     });
     
     UsersService.getFollowedUsers()
       .then(function (response) {
         $scope.followedUsers = response;
     }, function (err) {
-        notifier.error(err.error_description);
+        notifier.error('Failed to load followed users');
     });
     
     $scope.followUser = function (user) {
@@ -30,7 +30,7 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
             }
 
         }, function (err) {
-            notifier.error(err.error_description);
+            notifier.error('Failed to follow the user.');
         });
     }
     
@@ -43,7 +43,7 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
                 $scope.followedUsers.splice(index, 1);
             }
         }, function (err) {
-            notifier.error(err.error_description);
+            notifier.error('Failed to unfollow the user.');
         });
     }
     

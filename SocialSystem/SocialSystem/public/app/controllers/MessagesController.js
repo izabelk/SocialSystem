@@ -1,20 +1,11 @@
 ﻿'use strict';
 
-app.controller('MessagesController', ['$scope', '$timeout', '$sce', 'MessagesService', 'notifier',
-     function ($scope, $timeout, $sce, MessagesService, notifier) {
+app.controller('MessagesController', ['$scope', '$interval', '$sce', 'MessagesService', 'notifier',
+     function ($scope, $interval, $sce, MessagesService, notifier) {
     
     $scope.hashTagQuery = '';
     $scope.messages;
     $scope.filters = [];
-    
-    $timeout(function () {
-        MessagesService.getMessages()
-        .then(function (response) {
-            $scope.messages = response;
-        }, function (err) {
-            notifier.error('Messages could not be loaded.');
-        });
-     }, 30 * 1000);
     
     MessagesService.getMessages()
         .then(function (response) {
@@ -22,6 +13,15 @@ app.controller('MessagesController', ['$scope', '$timeout', '$sce', 'MessagesSer
     }, function (err) {
         notifier.error('Messages could not be loaded.');
     });
+    
+    $interval(function () {
+        //MessagesService.getMessages()
+        //.then(function (response) {
+        //    $scope.messages = response;
+        //}, function (err) {
+        //    notifier.error('Messages could not be loaded.');
+        //});
+    }, 30 * 1000);
     
     $scope.areMessagesEmpty = function () {
         if ($scope.messages) {

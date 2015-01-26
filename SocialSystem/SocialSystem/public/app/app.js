@@ -37,12 +37,12 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/users', {
             templateUrl: 'views/partials/users.html',
             controller: 'UsersController',
-            resolve: { loginRequired: loginRequired }
+            //resolve: { loginRequired: loginRequired }
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
             controller: 'MessagesController',
-            resolve: { loginRequired: loginRequired }
+            //resolve: { loginRequired: loginRequired }
         })
          .otherwise({
         redirectTo: '/'
