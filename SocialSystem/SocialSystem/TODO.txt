@@ -3,3 +3,9 @@
 -Make better query in db when filtering by hash tags. (It should search in whole sentences) -> $regex
 -Check if hash tag filtering is according to project tasks.
 -Replace input type text with input type email in login.html.
+
+
+Useful links:
+-passport-session understanding -> http://toon.io/understanding-passportjs-authentication-flow/
+-token-based passport authentication -> http://blog.jeroenpelgrims.be/token-based-sessionless-auth-using-express-and-passport/c
+- password-beared ->https://github.com/resurge/passport-http-bearer#making-authenticated-requests
