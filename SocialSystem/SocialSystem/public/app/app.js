@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngResource', 'ngRoute'])
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ngSanitize'])
                  .value('toastr', toastr)
                  .constant('baseServiceUrl', 'http://localhost:3000')
 

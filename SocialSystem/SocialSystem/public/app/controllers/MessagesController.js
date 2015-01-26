@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-app.controller('MessagesController', ['$scope', '$timeout', 'MessagesService', 'notifier',
-     function ($scope, $timeout, MessagesService, notifier) {
+app.controller('MessagesController', ['$scope', '$timeout', '$sce', 'MessagesService', 'notifier',
+     function ($scope, $timeout, $sce, MessagesService, notifier) {
     
     $scope.hashTagQuery = '';
     $scope.messages;
@@ -42,7 +42,7 @@ app.controller('MessagesController', ['$scope', '$timeout', 'MessagesService', '
             });
         }
         else {
-            notifier.error('Incorrect message.')
+            notifier.error('Message text should be shorter than 140 symbols.');
         }
     }
 
