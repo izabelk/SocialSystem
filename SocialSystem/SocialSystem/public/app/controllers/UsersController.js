@@ -4,19 +4,18 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
     function UsersController($scope, UsersService, identity) {
      
     $scope.usersToFollow;
-    $scope.usersToUnfollow;
+    $scope.followedUsers;
     
     UsersService.getUsersToFollow()
       .then(function (response) {
-        console.log(response);
         $scope.usersToFollow = response;
     }, function (err) {
         notifier.error(err.error_description);
     });
     
-    UsersService.getUsersToUnfollow()
+    UsersService.getFollowedUsers()
       .then(function (response) {
-        $scope.usersToUnfollow = response;
+        $scope.followedUsers = response;
     }, function (err) {
         notifier.error(err.error_description);
     });
@@ -24,7 +23,7 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
     $scope.followUser = function (user) {
         UsersService.followUser(user._id)
         .then(function (response) {
-            $scope.usersToUnfollow.push(user);
+            $scope.followedUsers.push(user);
             var index = $scope.usersToFollow.indexOf(user);
             if (index > -1) {
                 $scope.usersToFollow.splice(index, 1);
@@ -39,9 +38,9 @@ app.controller('UsersController', ['$scope', 'UsersService', 'identity',
         UsersService.stopFollowUser(user._id)
         .then(function (response) {
             $scope.usersToFollow.push(user);
-            var index = $scope.usersToUnfollow.indexOf(user);
+            var index = $scope.followedUsers.indexOf(user);
             if (index > -1) {
-                $scope.usersToUnfollow.splice(index, 1);
+                $scope.followedUsers.splice(index, 1);
             }
         }, function (err) {
             notifier.error(err.error_description);

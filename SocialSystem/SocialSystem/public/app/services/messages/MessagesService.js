@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-app.factory('MessagesService', function ($http, $q, baseServiceUrl) {
+app.factory('MessagesService', ['$http', '$q', 'baseServiceUrl',
+     function ($http, $q, baseServiceUrl) {
     
     var messagesApi = baseServiceUrl + '/api/messages',
         filteredMessagesApi = baseServiceUrl + '/api/filteredMessages/';
@@ -34,7 +35,6 @@ app.factory('MessagesService', function ($http, $q, baseServiceUrl) {
     var getFilteredMessages = function (tagsQuery) {
         var deferred = $q.defer();
         
-        //console.log(filteredMessagesApi + tagsQuery);
         $http.get(filteredMessagesApi + tagsQuery)
         .success(function (response) {
             deferred.resolve(response);
@@ -50,4 +50,4 @@ app.factory('MessagesService', function ($http, $q, baseServiceUrl) {
         getMessages: getMessages,
         getFilteredMessages: getFilteredMessages
     };
-});
+}]);

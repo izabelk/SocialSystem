@@ -1,4 +1,6 @@
-﻿app.directive('passCheck', function () {
+﻿'use strict';
+
+app.directive('passCheck', function () {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {

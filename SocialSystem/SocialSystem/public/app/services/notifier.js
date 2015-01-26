@@ -1,4 +1,6 @@
-app.factory('notifier', ['toastr', function(toastr) {
+'use strict';
+
+app.factory('notifier', ['toastr', function (toastr) {
     return {
         success: function(msg) {
             toastr.success(msg);

@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) {
+app.factory('auth', ['$http', '$q', 'identity', 'UsersResource', 'UsersService',
+     function ($http, $q, identity, UsersResource, UsersService) {
     
     return {
         loadCurrentUser: function () {
@@ -8,7 +9,7 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
                     .then(function (user) {
                         identity.currentUser = user;
                     }, function (error) {
-                        notifier.error('Failed to load the current user.');
+                        console.log("Error getting the current user.");
                     });
         },
 
@@ -56,4 +57,4 @@ app.factory('auth', function ($http, $q, identity, UsersResource, UsersService) 
             return identity.isAuthenticated();
         }
     };
-});
+}]);

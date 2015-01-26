@@ -1,10 +1,11 @@
 ﻿'use strict';
 
-app.factory('identity', function ($window, UsersResource) { 
+app.factory('identity', ['$window', 'UsersResource',
+     function ($window, UsersResource) { 
     return {
         currentUser: undefined, 
         isAuthenticated: function () {
             return !!this.currentUser;
         }
     };
-});
+}]);
