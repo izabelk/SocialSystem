@@ -7,5 +7,5 @@
 
 Useful links:
 -passport-session understanding -> http://toon.io/understanding-passportjs-authentication-flow/
--token-based passport authentication -> http://blog.jeroenpelgrims.be/token-based-sessionless-auth-using-express-and-passport/c
+-token-based passport authentication -> http://blog.jeroenpelgrims.be/token-based-sessionless-auth-using-express-and-passport/
 - password-beared ->https://github.com/resurge/passport-http-bearer#making-authenticated-requests
