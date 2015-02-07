@@ -3,9 +3,6 @@
 app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routeParams', '$location', '$route', 'MessagesService', 'notifier',
      function ($scope, $interval, $sce, $routeParams, $location, $route, MessagesService, notifier) {
     
-    console.log($routeParams);
-
-    $scope.hashTagQuery = '';
     $scope.messages;
 
     if ($routeParams && $routeParams.filters) {

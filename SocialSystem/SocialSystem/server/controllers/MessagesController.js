@@ -1,4 +1,5 @@
 ﻿var Message = require('mongoose').model('Message');
+var User = require('mongoose').model('User');
 
 var CONTROLLER_NAME = 'messages';
 
@@ -48,52 +49,72 @@ module.exports = {
         var currentUser = req.user;
         if (currentUser) {
             var filters = req.query.filters;
-
+            
             if (filters && !(filters instanceof Array)) {
-            	filters = [filters];
+                filters = [filters];
             }
-
-            console.log(filters);
+            
             if (!filters || filters.length === 0) {
-            	Message.find({
-                	author: { $in: currentUser.followedUsers }
-	            })
+                Message.find({
+                    author: { $in: currentUser.followedUsers }
+                })
 	            .sort({ 'date': -1 })
 	            .limit(50)
 	            .populate('author', 'username')
 	            .exec(function (err, messages) {
-	                if (err) {
-	                    res.status(500).send('Failed to get messages');
-	                } else {
-	                    res.status(200).send(messages);
-	                }
-	            });	
+                    if (err) {
+                        res.status(500).send('Failed to get messages');
+                    } else {
+                        res.status(200).send(messages);
+                    }
+                });
             } else {
-            	var searchText = '',
-            	    filtersCount = filters.length;
+                var searchText = '',
+                    filtersCount = filters.length;
+                
+                for (i = 0; i < filtersCount; i++) {
+                    if (i > 0) {
+                        searchText += ' ';
+                    }
+                    
+                    searchText += '"#' + filters[i] + '"';
+                }
+                
+                Message.textSearch(searchText, function (err, output) {
+                    if (err || !output.results) {
+                        res.status(500).send('Failed to get messages.');
+                    } else {
+                        var result = [],
+                            authorNames = [],
+                            resultsCount = output.results.length;
 
-            	for (i = 0; i < filtersCount; i++) {
-            		if (i > 0) {
-            			searchText += ' ';
-            		}
+                        for (i = 0; i < resultsCount; i++) {
 
-            		searchText += '"#' + filters[i] +  '"';
-            	}
+                            result.push(output.results[i].obj);
 
-            	console.log(searchText);
-            	Message.textSearch(searchText, function(err, output) {
-            		if (err || !output.results) {
-            			res.status(500).send('Failed to get messages');
-            		} else {
-            			var result = [],
-            				resultsCount = output.results.length;
-            			for (i = 0; i < resultsCount; i++) {
-            				result.push(output.results[i].obj);
-            			}
+                            User.findOne({ _id: output.results[i].obj.author })
+                            .exec(function (err, user) {
+                                if (err) {
+                                    res.status(500).send('Failed to load author for filtered messages.');
+                                } else {
+                                    authorNames.push(user.username);
+                                    //Executed third! 
+                                    console.log(authorNames);
+                                }
+                            });
+                        }
+                        
+                        //Executed first! 
+                        console.log(authorNames); // authorNames : []
+                        for (var i = 0; i < authorNames.length; i++) {
+                            result[i].author = authorNames[i];
+                        }
+                        //Executed second! 
+                        console.log(result);
 
-            			res.status(200).send(result);
-            		}
-            	});
+                        res.status(200).send(result);
+                    }
+                });
             }
         }
         else {
