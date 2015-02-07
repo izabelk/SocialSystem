@@ -2,6 +2,8 @@
 
 app.controller('MessagesController', ['$scope', 'MessagesService', 'notifier', function ($scope, MessagesService, notifier) {
     
+    MessagesService.getMessages();
+
     $scope.postMessage = function (message, messageForm) {
         if (messageForm.$valid) {
             MessagesService.postMessage(message)
