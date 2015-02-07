@@ -16,9 +16,9 @@ module.exports = function (app) {
         .post(controllers.users.postRegister)
         .get(controllers.users.getAllUsers);
     
-    app.route('/api/users/followed').get(controllers.users.getUsersToFollow);
+    app.route('/api/users/tofollow').get(controllers.users.getUsersToFollow);
     
-    app.route('/api/users/unfollowed').get(controllers.users.getUsersToUnfollow);
+    app.route('/api/users/followed').get(controllers.users.getFollowedUsers);
     
     app.route('/api/users/follow-user/:id')
         .post(controllers.users.followUser);
@@ -28,20 +28,18 @@ module.exports = function (app) {
     
     app.route('/api/user')
         .get(controllers.users.getCurrentUser);
-
-    app.route('/api/messages/')
+    
+    app.route('/api/messages')
         .post(controllers.messages.postMessage)
         .get(controllers.messages.getMessages);
-
+    
+    app.route('/api/filteredMessages')
+        .get(controllers.messages.getMessagesByHashTag);
+    
     app.route('/api/login').post(auth.login);
     app.route('/api/logout').post(auth.logout);
 
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../views', 'index.html'));
     });
-    
-    
-    
-    
-    app.route('/api/messages').get(controllers.messages.getMessages);
 };

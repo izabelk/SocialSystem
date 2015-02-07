@@ -1,44 +1,34 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ngResource', 'ngRoute'])
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ngSanitize'])
                  .value('toastr', toastr)
                  .constant('baseServiceUrl', 'http://localhost:3000')
 
 app.config(function ($routeProvider, $locationProvider) {
     
-    //var routeUserChecks = {
-    //    authenticated: {
-    //        authenticate: function (auth) {
-    //            return auth.isAuthenticated();
-    //        }
-    //    }
-    //};
-    
-    toastr.options = {
-        toastClass: 'alert',
-        iconClasses: {
-            error: 'alert-error',
-            success: 'alert-success',
-            info: 'alert-info',
-            warning: 'alert-warning'
-        },
-        positionClass: '', // I position it properly already. not needed.
-        fadeIn : 100, // .3 seconds
-        fadeOut: 200, // .3 seconds
-        timeOut: 2000, // 2 seconds – set to 0 for “infinite”
-        extendedTimeOut: 2000, // 2 seconds more if the user interact with it
-        target: 'body'
-    };
-    
+    var loginRequired = function ($location, $q, auth, notifier) {
+
+        var deferred = $q.defer();
+        
+        if (auth.isAuthenticated()) {
+            deferred.resolve();
+        } 
+        else {
+            deferred.reject();
+            notifier.info('Please login.');
+            $location.path('/login');
+        }
+        
+        return deferred.promise;
+    }
+        
     $routeProvider
         .when('/', {
-            templateUrl: 'views/partials/home.html',
-            controller: 'HomeController'
+            templateUrl: 'views/partials/home.html'
         })
         .when('/register', {
             templateUrl: 'views/partials/register.html',
             controller: 'RegisterController'
-
         })
         .when('/login', {
             templateUrl: 'views/partials/login.html',
@@ -46,11 +36,13 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/users', {
             templateUrl: 'views/partials/users.html',
-            controller: 'UsersController'
+            controller: 'UsersController',
+            //resolve: { loginRequired: loginRequired }
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
-            controller: 'MessagesController'
+            controller: 'MessagesController',
+            //resolve: { loginRequired: loginRequired }
         })
          .otherwise({
         redirectTo: '/'
@@ -59,4 +51,10 @@ app.config(function ($routeProvider, $locationProvider) {
 
 app.run(function ($rootScope, $window, notifier, auth) {
     auth.loadCurrentUser();
+    //$rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
+    //    if (rejection === 'not authorized') {
+    //        notifier.error('You are not authorized!');
+    //        $window.history.back();
+    //    }
+    //});
 });

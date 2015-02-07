@@ -4,7 +4,8 @@
     <title>Social System</title>
     <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
-    <!--<link rel="stylesheet" href="../../lib/toastr/toastr.css" type="text/css" />-->
+    <link rel="stylesheet" href="../../lib/toastr/toastr.css" type="text/css" />
+    <link rel="stylesheet" href="../../css/site.css" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -18,14 +19,7 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#/users">Users</a>
-                    </li>
-                    <li>
-                        <a href="#/newsfeed">News feed</a>
-                    </li>
-                </ul>
+                <div ng-include="'../../app/views/partials/nav.html'"></div>
             </div>
         </div>
     </div>
@@ -37,19 +31,28 @@
         <p class="text-center">&copy; Hirundo Social System</p>
     </footer>
 
+  
+        <!--<script>
+            window.bootstrappedUserObject = !JSON.stringify(currentUser)
+        </script>-->
+
+    
+   
+
     <script src="../../lib/jquery/dist/jquery.js"></script>
     <script src="../../lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../../lib/angular/angular.js"></script>
     <script src="../../lib/angular-route/angular-route.js"></script>
     <script src="../../lib/angular-resource/angular-resource.js"></script>
+    <script src="../../lib/angular-sanitize/angular-sanitize.js"></script>
     <script src="../../lib/toastr/toastr.js"></script>
 
     <script src="../../app/app.js"></script>
     <script src="../../app/controllers/RegisterController.js"></script>
     <script src="../../app/controllers/LoginController.js"></script>
-    <script src="../../app/controllers/HomeController.js"></script>
     <script src="../../app/controllers/UsersController.js"></script>
     <script src="../../app/controllers/MessagesController.js"></script>
+    <script src="../../app/controllers/NavController.js"></script>
 
     <script src="../../app/services/account/auth.js"></script>
     <script src="../../app/services/account/UsersResource.js"></script>
@@ -58,5 +61,8 @@
     <script src="../../app/services/account/identity.js"></script>
     <script src="../../app/services/notifier.js"></script>
 
+    <script src="../../app/directives/pass-verify.js"></script>
+
+    <script src="../../app/filters/hashtagFilter.js"></script>
 </body>
 </html>

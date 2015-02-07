@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('RegisterController', ['$scope', '$location', 'auth', 'notifier', function($scope, $location, auth, notifier) { 
+app.controller('RegisterController', ['$scope', '$location', 'auth', 'notifier', 
+    function ($scope, $location, auth, notifier) { 
 	
     $scope.register = function(user) {
         auth.signup(user).then(function() {

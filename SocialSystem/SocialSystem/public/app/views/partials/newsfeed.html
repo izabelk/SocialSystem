@@ -12,13 +12,13 @@
                         <div class="form-group">
                             <label for="msgText" class="col-lg-2 control-label">Text</label>
                             <div class="col-lg-10">
-                                <textarea class="form-control" rows="3" id="msgText" ng-model="message.content" placeholder="Enter message"></textarea>
+                                <textarea class="form-control" name="msgText" rows="3" id="msgText" ng-model="message.content" placeholder="Enter message" required ng-maxlength="140"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="msgPlace" class="col-lg-2 control-label">Place</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="msgPlace" ng-model="message.place" placeholder="Place">
+                                <input type="text" class="form-control" name="msgPlace" id="msgPlace" ng-model="message.place" placeholder="Place">
                             </div>
                         </div>
                         <div class="form-group">
@@ -31,4 +31,47 @@
             </div>
         </div>
     </div>
+
+    <h3>Messages</h3>
+    <div class="bs-component" ng-if="filtersExist()">
+        <span class="label label-success" ng-repeat="filter in filters" style="margin-right:5px">
+            {{filter}}
+        </span>
+    </div>
+
+    <h4 ng-if="areMessagesEmpty()">No new messages available.</h4>
+    <br />
+    <br />
+    <br />
+    <button class="btn btn-info pull-right" ng-if="filtersExist()" ng-click="clearFilters()">
+        Clear filters
+    </button>
+    <ul style="list-style-type:none">
+        <li ng-repeat="message in messages">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bs-component">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{message.author.username}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <span ng-bind-html="message.content | hashtagFilter : filters"></span>
+                                <br />
+                                <br />
+                                <span class="pull-right">
+                                    <b>Posted on: </b> {{message.date | date : 'medium'}}
+                                </span>
+                                <br />
+                                <span class="pull-right">
+                                    <em>from</em> {{message.place}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    
 </div>

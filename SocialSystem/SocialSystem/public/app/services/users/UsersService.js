@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-app.factory('UsersService', function ($http, $q, baseServiceUrl) {
+app.factory('UsersService', ['$http', '$q', 'baseServiceUrl',
+     function ($http, $q, baseServiceUrl) {
     
     var usersApi = baseServiceUrl + '/api/users',
         userApi = baseServiceUrl + '/api/user';
@@ -34,7 +35,7 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
     var getUsersToFollow = function () {
         var deferred = $q.defer();
         
-        $http.get(usersApi + '/followed')
+        $http.get(usersApi + '/tofollow')
         .success(function (response) {
             deferred.resolve(response);
         }).error(function (err, status) {
@@ -44,10 +45,10 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
         return deferred.promise;
     };
     
-    var getUsersToUnfollow = function () {
+    var getFollowedUsers = function () {
         var deferred = $q.defer();
         
-        $http.get(usersApi + '/unfollowed')
+        $http.get(usersApi + '/followed')
         .success(function (response) {
             deferred.resolve(response);
         }).error(function (err, status) {
@@ -88,7 +89,7 @@ app.factory('UsersService', function ($http, $q, baseServiceUrl) {
         followUser: followUser,
         stopFollowUser: stopFollowUser,
         getUsersToFollow: getUsersToFollow,
-        getUsersToUnfollow: getUsersToUnfollow,
+        getFollowedUsers: getFollowedUsers,
         getCurrentUser: getCurrentUser
     };
-});
+}]);

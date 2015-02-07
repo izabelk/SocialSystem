@@ -15,19 +15,15 @@ module.exports = {
             newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
             User.create(newUserData, function (err, user) {
                 if (err) {
-                    console.log('Failed to register new user: ' + err);
-                    return;
+                    res.status(500).send('Failed to register the user.')
                 }
                 
                 req.logIn(user, function (err) {
                     if (err) {
-                        res.status(400);
-                        return res.send({ reason: err.toString() }); // TODO
+                        res.status(400).end();
                     }
                     else {
-                        console.log('success register');
-                        console.log(user);
-                        res.send({ success: true });
+                        res.status(200).end();
                     }
                 })
             });
@@ -36,7 +32,7 @@ module.exports = {
     getAllUsers: function (req, res, next) {
         User.find({}, function (err, userData) {
             if (err) {
-                console.log("Error getting all users: " + err);
+                res.status(500).end();
             }
             else {
                 res.send(userData);
@@ -49,10 +45,10 @@ module.exports = {
              User.find({ $and: [ { _id: { $not: { $in: currentUser.followedUsers } } },
                                  { _id: { $ne: currentUser._id } }] }, function (err, userData) {
                 if (err) {
-                    console.log("Error getting users to follow: " + err);
+                    res.status(500).send('Failed to load users to follow.');
                 }
                 else {
-                    res.send(userData);
+                    res.status(200).send(userData);
                 }
             });
         } else {
@@ -60,8 +56,7 @@ module.exports = {
         }
     },
 
-    getUsersToUnfollow: function (req, res, next) {
-        console.log('in  unfollow');
+    getFollowedUsers: function (req, res, next) {
         var currentUser = req.user;
         if (currentUser) {
             User.find({
@@ -69,11 +64,10 @@ module.exports = {
                                { _id: { $ne: currentUser._id } }]
             }, function (err, userData) {
                 if (err) {
-                    console.log("Error getting users to unfollow: " + err);
+                    res.status(500).send('Failed to load followed users.');
                 }
                 else {
-                    console.log(userData);
-                    res.send(userData);
+                    res.status(200).send(userData);
                 }
             });
         } else {
@@ -88,16 +82,16 @@ module.exports = {
             if (id) {
                 User.findOne({ _id: id }, function (err, userToFollow) {
                     if (err) {
-                        console.log("Error getting user to follow");
+                        res.status(500).send('Failed to load the current user.');
                     }
                     else {
                         User.update({ _id: currentUser._id }, { $push: { followedUsers: userToFollow._id } },
                              function (error, num) {
                             if (error) {
-                                console.log(error);
+                                res.status(500).send('Failed to update the current user.');
                             }
                         });
-                        res.send({ success: true });
+                        res.status(200).end();
                     }
                 });
             }
@@ -114,16 +108,16 @@ module.exports = {
             if (id) {
                 User.findOne({ _id: id }, function (err, userToFollow) {
                     if (err) {
-                        console.log("Error getting user to strop follow");
+                        res.status(500).send('Failed to load the current user.');
                     }
                     else {
                         User.update({ _id: currentUser._id }, { $pull: { followedUsers: userToFollow._id } },
                              function (error, num) {
                             if (error) {
-                                console.log(error);
+                                res.status(500).send('Failed to update the current user.');
                             }
                         });
-                        res.send({ success: true });
+                        res.status(200).end();
                     }
                 });
             }
@@ -136,10 +130,12 @@ module.exports = {
     getCurrentUser: function (req, res, next) {
         var currentUser = req.user;
         if (currentUser) {
+            console.log("IMA USER");
             res.send(currentUser);
         } else {
+            console.log("NQMA USER");
+            //res.send(null);
             res.status(403).end();
         }
     }
-
 };

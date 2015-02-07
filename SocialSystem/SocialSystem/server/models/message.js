@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    textSearch = require('mongoose-text-search');
 var Message;
 
 module.exports.init = function () {
@@ -14,5 +15,8 @@ module.exports.init = function () {
         place: String
     });
     
+    messagesSchema.plugin(textSearch);
+    messagesSchema.index({ content: 'text' });
+
     Message = mongoose.model('Message', messagesSchema);
 };
