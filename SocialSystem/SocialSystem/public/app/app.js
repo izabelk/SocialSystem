@@ -51,7 +51,6 @@ app.run(function ($rootScope, $window, $location, notifier, auth) {
     }
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
-        console.log($location.url());
         if (routeRequiresAuth($location.url()) && !auth.isAuthenticated()) {
             notifier.info('Please login.');
             $location.path('/login');
