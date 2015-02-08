@@ -33,16 +33,16 @@ app.config(function ($routeProvider, $locationProvider) {
 app.run(function ($rootScope, $window, $location, notifier, auth) {
     auth.loadCurrentUser();
 
-    var authRoutes = [
+    var AUTH_ROUTES = [
         '/users',
         '/newsfeed'
     ];
 
     function routeRequiresAuth(url) {
-        var routesCount = authRoutes.length,
+        var routesCount = AUTH_ROUTES.length,
             i = 0;
         for (i = 0; i < routesCount; i++) {
-            if (authRoutes[i] === url) {
+            if (AUTH_ROUTES[i] === url) {
                 return true;
             }
         }
@@ -51,6 +51,7 @@ app.run(function ($rootScope, $window, $location, notifier, auth) {
     }
 
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        console.log($location.url());
         if (routeRequiresAuth($location.url()) && !auth.isAuthenticated()) {
             notifier.info('Please login.');
             $location.path('/login');
