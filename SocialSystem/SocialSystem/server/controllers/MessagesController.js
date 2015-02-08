@@ -85,34 +85,45 @@ module.exports = {
                         res.status(500).send('Failed to get messages.');
                     } else {
                         var result = [],
-                            authorNames = [],
+                            authorIds = [],
                             resultsCount = output.results.length;
 
                         for (i = 0; i < resultsCount; i++) {
 
-                            result.push(output.results[i].obj);
-
-                            User.findOne({ _id: output.results[i].obj.author })
-                            .exec(function (err, user) {
-                                if (err) {
-                                    res.status(500).send('Failed to load author for filtered messages.');
-                                } else {
-                                    authorNames.push(user.username);
-                                    //Executed third! 
-                                    console.log(authorNames);
-                                }
-                            });
+                        	// We need toObject() method call in order to get a normal JS object instead of Mongoose model entity.
+                        	// The plain JS object can be modified.
+                            result.push(output.results[i].obj.toObject()); 
+                            authorIds.push(output.results[i].obj.author);
                         }
-                        
-                        //Executed first! 
-                        console.log(authorNames); // authorNames : []
-                        for (var i = 0; i < authorNames.length; i++) {
-                            result[i].author = authorNames[i];
-                        }
-                        //Executed second! 
-                        console.log(result);
 
-                        res.status(200).send(result);
+                        User.find({
+                        	_id: {
+                        		$in: authorIds
+                        	}
+                        }, function(err, users) {
+                        	if (err) {
+                        		res.status(500).send('Failed to load authors data');
+                        	} else {
+                        		var idToAuthorMapping = {},
+                        		 	usersCount = users.length,
+                        		 	i;
+
+                        		for (i = 0; i < usersCount; i++) {
+                        			idToAuthorMapping[users[i]._id] = { 
+                        				_id: users[i]._id,
+                        				username: users[i].username
+                        			};
+                        		}
+
+                        		for (i = 0; i < resultsCount; i++) {
+                        			var authorId = result[i].author;
+
+                        			result[i].author = idToAuthorMapping[authorId];
+                        		}                        		
+
+		                        res.status(200).send(result);
+                        	}
+                        });
                     }
                 });
             }
