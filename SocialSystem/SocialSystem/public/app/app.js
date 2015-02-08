@@ -5,23 +5,6 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ngSanitize'])
                  .constant('baseServiceUrl', 'http://localhost:3000')
 
 app.config(function ($routeProvider, $locationProvider) {
-    
-    var loginRequired = function ($location, $q, auth, notifier) {
-
-        var deferred = $q.defer();
-        
-        if (auth.isAuthenticated()) {
-            deferred.resolve();
-        } 
-        else {
-            deferred.reject();
-            notifier.info('Please login.');
-            $location.path('/login');
-        }
-        
-        return deferred.promise;
-    }
-        
     $routeProvider
         .when('/', {
             templateUrl: 'views/partials/home.html'
@@ -36,25 +19,41 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/users', {
             templateUrl: 'views/partials/users.html',
-            controller: 'UsersController',
-            //resolve: { loginRequired: loginRequired }
+            controller: 'UsersController'
         })
         .when('/newsfeed', {
             templateUrl: 'views/partials/newsfeed.html',
-            controller: 'MessagesController',
-            //resolve: { loginRequired: loginRequired }
+            controller: 'MessagesController'
         })
          .otherwise({
         redirectTo: '/'
     });
 });
 
-app.run(function ($rootScope, $window, notifier, auth) {
+app.run(function ($rootScope, $window, $location, notifier, auth) {
     auth.loadCurrentUser();
-    //$rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
-    //    if (rejection === 'not authorized') {
-    //        notifier.error('You are not authorized!');
-    //        $window.history.back();
-    //    }
-    //});
+
+    var authRoutes = [
+        '/users',
+        '/newsfeed'
+    ];
+
+    function routeRequiresAuth(url) {
+        var routesCount = authRoutes.length,
+            i = 0;
+        for (i = 0; i < routesCount; i++) {
+            if (authRoutes[i] === url) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        if (routeRequiresAuth($location.url()) && !auth.isAuthenticated()) {
+            notifier.info('Please login.');
+            $location.path('/login');
+        }
+    });
 });
