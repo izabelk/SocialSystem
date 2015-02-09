@@ -1,12 +1,3 @@
-!!! -Fix server session ( try to use tokens instead of session).
-!!! -Fix storing currentUser in Angular (in auth.js -> currentUser : undefined) => resolve routes not working correctly.
-!!! -Return author names when filtering by hash tag. Code is run asynchronously => should be written better or use mongoose-text-plugin (for populate) instead of mongoose-text-search.
 !!! Escape html when showing messages, allow html only under special conditions(for example some <a></a> tags).
-- Make hash tag filtering execute only once.
 - Replace input type text with input type email in login.html.
-
-
-Useful links:
--passport-session understanding -> http://toon.io/understanding-passportjs-authentication-flow/
--token-based passport authentication -> http://blog.jeroenpelgrims.be/token-based-sessionless-auth-using-express-and-passport/
-- passport-beared ->https://github.com/resurge/passport-http-bearer#making-authenticated-requests
+- Test app.

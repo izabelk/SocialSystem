@@ -43,9 +43,13 @@
     <br />
     <br />
     <br />
-    <button class="btn btn-info pull-right" ng-if="filtersExist()" ng-click="clearFilters()">
-        Clear filters
-    </button>
+    <div class="row text-center">
+        <button class="btn btn-primary" ng-if="filtersExist()" ng-click="clearFilters()">
+            Clear filters
+        </button>
+    </div>
+    <br />
+    <br />
     <ul style="list-style-type:none">
         <li ng-repeat="message in messages">
             <div class="row">
@@ -73,5 +77,5 @@
             </div>
         </li>
     </ul>
-    
+
 </div>

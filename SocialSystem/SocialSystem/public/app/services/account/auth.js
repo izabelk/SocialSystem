@@ -2,6 +2,21 @@
 
 app.factory('auth', ['$http', '$q', 'identity', 'UsersResource', 'UsersService',
      function ($http, $q, identity, UsersResource, UsersService) {
+        var AUTH_ROUTES = [
+            '/users',
+            '/newsfeed'
+        ];
+
+        function routeRequiresAuth(url) {
+            var routesCount = AUTH_ROUTES.length,
+                i = 0;
+            for (i = 0; i < routesCount; i++) {
+                if (AUTH_ROUTES[i] === url) {
+                    return true;
+                }
+            }
+            return false;
+        }
     
     return {
         loadCurrentUser: function () {
@@ -10,6 +25,14 @@ app.factory('auth', ['$http', '$q', 'identity', 'UsersResource', 'UsersService',
                         identity.currentUser = user;
                     }, function (error) {
                         console.log("Error getting the current user.");
+                    })
+                    .finally(function () {
+                        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+                            if (routeRequiresAuth($location.url()) && !auth.isAuthenticated()) {
+                                notifier.info('Please login.');
+                                $location.path('/login');
+                            }
+                        });
                     });
         },
 

@@ -4,6 +4,11 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
      function ($scope, $interval, $sce, $routeParams, $location, $route, MessagesService, notifier) {
     
     $scope.messages;
+    
+    var defaultForm = {
+        content: "",
+        place: ""
+    };
 
     if ($routeParams && $routeParams.filters) {
         if ($routeParams.filters instanceof Array) {
@@ -23,12 +28,12 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
     });
     
     $interval(function () {
-        //MessagesService.getMessages()
-        //.then(function (response) {
-        //    $scope.messages = response;
-        //}, function (err) {
-        //    notifier.error('Messages could not be loaded.');
-        //});
+        MessagesService.getFilteredMessages($scope.filters)
+        .then(function (response) {
+            $scope.messages = response;
+        }, function (err) {
+            notifier.error('Messages could not be loaded.');
+        });
     }, 30 * 1000);
     
     $scope.areMessagesEmpty = function () {
@@ -45,6 +50,8 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
             MessagesService.postMessage(message)
                 .then(function () {
                 notifier.success('Message posted successfully!');
+                $scope.messageForm.$setPristine();
+                $scope.message = defaultForm;
             }, function () {
                 notifier.error('An error occured while posting the message.');
             });
