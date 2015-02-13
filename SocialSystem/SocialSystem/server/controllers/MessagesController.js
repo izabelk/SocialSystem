@@ -119,7 +119,11 @@ module.exports = {
                         			var authorId = result[i].author;
 
                         			result[i].author = idToAuthorMapping[authorId];
-                        		}                        		
+                        		}
+
+                        		result.sort(function(a, b) {
+                        			return b.date - a.date;
+                        		});                        		
 
 		                        res.status(200).send(result);
                         	}
