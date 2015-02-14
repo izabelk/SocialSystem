@@ -1,3 +1,0 @@
-!!! Escape html when showing messages, allow html only under special conditions(for example some <a></a> tags).
-- Replace input type text with input type email in login.html.
-- Test app.

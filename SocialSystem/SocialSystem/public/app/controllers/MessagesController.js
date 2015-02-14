@@ -49,6 +49,7 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
             }, function () {
                 notifier.error('An error occured while posting the message.');
             });
+
         }
         else {
             notifier.error('Message text should be shorter than 140 symbols.');
