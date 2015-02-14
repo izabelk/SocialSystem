@@ -50,11 +50,13 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
             MessagesService.postMessage(message)
                 .then(function () {
                 notifier.success('Message posted successfully!');
-                $scope.messageForm.$setPristine();
-                $scope.message = defaultForm;
+               $scope.message.content = '';
+               $scope.message.place = '';
+               $scope.messageForm.$setPristine();
             }, function () {
                 notifier.error('An error occured while posting the message.');
             });
+
         }
         else {
             notifier.error('Message text should be shorter than 140 symbols.');
