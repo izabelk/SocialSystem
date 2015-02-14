@@ -2,13 +2,6 @@
 
 app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routeParams', '$location', '$route', 'MessagesService', 'notifier',
      function ($scope, $interval, $sce, $routeParams, $location, $route, MessagesService, notifier) {
-    
-    $scope.messages;
-    
-    var defaultForm = {
-        content: "",
-        place: ""
-    };
 
     if ($routeParams && $routeParams.filters) {
         if ($routeParams.filters instanceof Array) {
@@ -45,13 +38,14 @@ app.controller('MessagesController', ['$scope', '$interval', '$sce', '$routePara
         }
     }
 
-    $scope.postMessage = function (message, messageForm) {
+    $scope.submitForm = function (message, messageForm) {
         if (messageForm.$valid) {
             MessagesService.postMessage(message)
                 .then(function () {
                 notifier.success('Message posted successfully!');
-                $scope.messageForm.$setPristine();
-                $scope.message = defaultForm;
+                $scope.message.content = '';
+                $scope.message.place = '';
+                messageForm.$setPristine();
             }, function () {
                 notifier.error('An error occured while posting the message.');
             });
